@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Earth Explored</title>
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <!-- Stylesheet -->
+
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,7 +19,10 @@
   <!-- HEADER -->
   <header class="site-header">
     <div class="container header-inner">
-      <div class="logo">Earth Explored</div>
+      <div class="logo">
+        <img src="images/logo.png" alt="Earth Explorer Logo" class="site-logo">
+        <span>Earth Explored</span>
+      </div>
       <nav class="site-nav">
         <ul>
           <li><a href="about.html">About</a></li>
@@ -32,8 +38,8 @@
   <section class="hero" style="background-image:url('images/hero-earth.jpg')">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-      <h1>Your Gateway to Interactive Earth Exploration</h1>
-      <p>Discover real-time weather, deep-dive history, live flight paths, and more—all in one place.</p>
+      <h1>Your gateway to exploring our world</h1>
+      <p class="rotating-text" id="rotating-text"></p>
       <a href="features.html" class="btn btn-primary">Explore Features</a>
     </div>
   </section>
@@ -42,8 +48,8 @@
     <!-- WHO WE ARE PREVIEW -->
     <section class="section">
       <div class="container" style="text-align:center;">
-        <h2 style="font-size:2.5rem; margin-bottom:1rem;">Who We Are</h2>
-        <p style="font-size:1.4rem; max-width:800px; margin:0 auto;">
+        <h2>Who We Are</h2>
+        <p>
           Earth Explored brings planetary data to your fingertips—melding weather, history, flight paths, and user-generated content in one seamless interactive globe. Our platform empowers students, researchers, travelers, and curious minds to uncover insights about our planet in real time, with beautiful visuals and intuitive controls.
         </p>
       </div>
@@ -70,11 +76,14 @@
       </div>
     </section>
 
-    <!-- SERVICES PREVIEW (image removed) -->
+    <!-- SERVICES PREVIEW -->
     <section class="section">
       <div class="container" style="text-align:center;">
         <h2>Services We Offer</h2>
-        <p>From enterprise APIs to 3D physical globes, explore our full suite of offerings. <a href="services.html">See all services →</a></p>
+        <p>
+          From enterprise APIs to 3D physical globes, explore our full suite of offerings.
+          <a href="services.html">See all services →</a>
+        </p>
       </div>
     </section>
   </main>
@@ -83,10 +92,15 @@
   <footer class="site-footer">
     <div class="container">
       <h2>Get in Touch</h2>
-      <p>Email: <a href="mailto:info@earthexplored.com">info@earthexplored.com</a> | Phone: +1 (555) 123-4567</p>
+      <p>
+        Email: <a href="mailto:info@earthexplored.com">info@earthexplored.com</a>
+        | Phone: +1 (555) 123-4567
+      </p>
       <p>&copy; 2025 Earth Explored. All rights reserved.</p>
     </div>
   </footer>
 
+  <!-- Rotating text script -->
+  <script src="Java.js"></script>
 </body>
 </html>
