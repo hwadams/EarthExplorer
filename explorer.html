@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>World Viewer – Weather, Flights, GDP, Quakes, Fires, Night-lights</title>
+
+  <!-- MapLibre GL stylesheet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/maplibre-gl@5.5.0/dist/maplibre-gl.css"
+  >
+
+  <!-- quick inline styling for map & UI -->
+  <style>
+    html, body { margin:0; height:100%; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+    /* controls */
+    .switch {
+      position:absolute; left:10px; z-index:1;
+      font:12px Arial; background:#fff; padding:3px 6px; border-radius:4px;
+    }
+    #wxSwitch { top:10px; }
+    #gdpSwitch { top:38px; }
+    #qukSwitch { top:66px; }
+    #firSwitch { top:94px; }
+    #ntlSwitch { top:122px; }
+    #wxLayer {
+      position:absolute; left:120px; top:10px;
+      z-index:1; font:12px Arial; padding:2px 4px;
+    }
+    #year {
+      position:absolute; left:10px; bottom:20px; width:40%; z-index:1;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <!-- year slider -->
+  <input id="year" type="range" min="1886" max="2019" value="2025">
+
+  <!-- weather toggle + layer selector -->
+  <label id="wxSwitch" class="switch">
+    <input type="checkbox" checked> Weather
+  </label>
+  <select id="wxLayer">
+    <option value="clouds_new" selected>Clouds</option>
+    <option value="precipitation_new">Radar / Rain</option>
+    <option value="wind_new">Wind</option>
+    <option value="temp_new">Temperature</option>
+  </select>
+
+  <!-- other toggles -->
+  <label id="gdpSwitch" class="switch">
+    <input type="checkbox"> GDP per capita
+  </label>
+  <label id="qukSwitch" class="switch">
+    <input type="checkbox"> Earthquakes (24 h)
+  </label>
+  <label id="firSwitch" class="switch">
+    <input type="checkbox"> Wildfires (7 d)
+  </label>
+  <label id="ntlSwitch" class="switch">
+    <input type="checkbox"> Night-lights
+  </label>
+
+  <!-- MapLibre GL JS -->
+  <script src="https://unpkg.com/maplibre-gl@5.5.0/dist/maplibre-gl.js"></script>
+  <!-- your logic extracted to explorer.js -->
+  <script src="explorer.js"></script>
+</body>
+</html>
