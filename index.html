@@ -6,10 +6,16 @@
   <title>Earth Explored</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
 
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css"/>
@@ -29,7 +35,6 @@
           <li><a href="features.html">Features</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <!-- NEW LINK: Borders Over Time -->
           <li><a href="borders.html">Borders Over Time</a></li>
           <li><a href="explorer.html">Explorer</a></li>
         </ul>
@@ -37,7 +42,7 @@
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO SECTION -->
   <section class="hero" style="background-image:url('images/hero-earth.jpg')">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
@@ -47,8 +52,77 @@
     </div>
   </section>
 
-  <!-- …rest of index.html unchanged… -->
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2>Who We Are</h2>
+        <p>
+          Earth Explored brings planetary data to your fingertips—melding weather, history, flight paths, and user-generated content in one seamless interactive globe. Our platform empowers students, researchers, travelers, and curious minds to uncover insights about our planet in real time, with beautiful visuals and intuitive controls.
+        </p>
+      </div>
+    </section>
 
+    <!-- FEATURES -->
+    <section id="features" class="section">
+      <div class="container">
+        <h2>Key Features</h2>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <i class="fas fa-cloud-sun-rain"></i>
+            <h3>Interactive Weather Maps</h3>
+            <p>Visualize real-time and historical weather with high-res overlays and time-slider controls.</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-landmark"></i>
+            <h3>Historical Timelines</h3>
+            <p>Journey through volcanic eruptions, ancient empires, and world events—mapped on a 3D globe.</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-plane"></i>
+            <h3>Global Flight Tracker</h3>
+            <p>Track thousands of flights in real time: routes, altitudes, aircraft details, and delay stats.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <div class="container">
+        <h2>Our Services</h2>
+        <div class="service-grid">
+          <div class="service-item">
+            <i class="fas fa-cloud"></i>
+            <h3>Weather Explorer</h3>
+            <p>Detailed forecasts, storm alerts, radar loops & climate analytics.</p>
+          </div>
+          <div class="service-item">
+            <i class="fas fa-history"></i>
+            <h3>Historical Insights</h3>
+            <p>Archaeological sites, trade routes & cultural landmarks across eras.</p>
+          </div>
+          <div class="service-item">
+            <i class="fas fa-route"></i>
+            <h3>Flight Intelligence</h3>
+            <p>Route popularity, airport traffic heatmaps & on-time performance metrics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER / CONTACT -->
+  <footer id="contact" class="site-footer">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:info@earthexplored.com">info@earthexplored.com</a> | Phone: +1 (555) 123-4567</p>
+      <p>&copy; 2025 Earth Explored. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Rotating text script -->
   <script src="Java.js"></script>
 </body>
 </html>
