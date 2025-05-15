@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Borders Over Time – United States</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ── Reset & Base ───────────────────────── */
+    * { margin:0; padding:0; box-sizing:border-box }
+    body { font-family:'Montserrat',sans-serif; background:#f5f5f5; }
+    a { text-decoration:none; color:inherit; }
+
+    /* ── HEADER ─────────────────────────────── */
+    .site-header {
+      background:linear-gradient(90deg,#0b3d91,#1e90ff);
+      padding:0.5rem;
+    }
+    .header-inner {
+      max-width:1200px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .logo {
+      color:#fff; font-family:'Lora',serif;
+      font-size:1.5rem; font-weight:700;
+    }
+    .site-nav ul {
+      list-style:none; display:flex; gap:1.5rem;
+    }
+    .site-nav a {
+      color:#fff; font-weight:600;
+    }
+
+    /* ── MAP ─────────────────────────────────── */
+    #map {
+      height: 60vh;            /* fixed 60% of viewport */
+      width: 100%;
+    }
+
+    /* ── CONTROLS ───────────────────────────── */
+    .controls {
+      background:#fff;
+      padding:1rem 5%;
+      border-top:1px solid #ddd;
+    }
+    #year-slider {
+      width:100%;
+      margin:0.5rem 0 1rem;
+    }
+    #info-panel p {
+      margin-bottom:0.5rem;
+      line-height:1.4;
+    }
+    #info-panel .clickable {
+      color:#0b3d91;
+      cursor:pointer;
+    }
+    #info-panel .details {
+      margin-left:1rem;
+      color:#555;
+      display:none;
+    }
+
+    /* ── FOOTER SPACER ──────────────────────── */
+    footer { height:40px; }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">Earth Explored</div>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="borders.html">Borders Over Time</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAP -->
+  <div id="map"></div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <label>Year: <strong id="year-display">1776</strong></label>
+    <input
+      id="year-slider"
+      type="range"
+      min="1776"
+      max="2025"
+      value="1776"
+      step="1"
+    />
+    <div id="info-panel"></div>
+  </div>
+
+  <footer></footer>
+
+  <!-- D3 + TopoJSON -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
+  <script>
+    // Admission years
+    const admission = {
+      Delaware:1787,Pennsylvania:1787,"New Jersey":1787,Georgia:1788,
+      Connecticut:1788,Massachusetts:1788,Maryland:1788,
+      "South Carolina":1788,"New Hampshire":1788,Virginia:1788,
+      "New York":1788,"North Carolina":1789,"Rhode Island":1790,
+      Vermont:1791,Kentucky:1792,Tennessee:1796,Ohio:1803,
+      Louisiana:1812,Indiana:1816,Mississippi:1817,Illinois:1818,
+      Alabama:1819,Maine:1820,Missouri:1821,Arkansas:1836,
+      Michigan:1837,Florida:1845,Texas:1845,Iowa:1846,
+      Wisconsin:1848,California:1850,Minnesota:1858,Oregon:1859,
+      Kansas:1861,"West Virginia":1863,Nevada:1864,Nebraska:1867,
+      Colorado:1876,"North Dakota":1889,"South Dakota":1889,
+      Montana:1889,Washington:1889,Idaho:1890,Wyoming:1890,
+      Utah:1896,Oklahoma:1907,"New Mexico":1912,Arizona:1912,
+      Alaska:1959,Hawaii:1959
+    };
+
+    // Region mapping
+    const region = {};
+    ["Delaware","Pennsylvania","New Jersey","Georgia","Connecticut",
+     "Massachusetts","Maryland","South Carolina","New Hampshire","Virginia",
+     "New York","North Carolina","Rhode Island"]
+      .forEach(s=>region[s]="orig");
+    ["Louisiana","Arkansas","Missouri","Iowa","Minnesota","North Dakota",
+     "South Dakota","Nebraska","Kansas","Oklahoma","Montana","Wyoming","Colorado"]
+      .forEach(s=>region[s]="lp");
+    ["California","Nevada","Utah","Arizona","New Mexico"].forEach(s=>region[s]="mx");
+    region["Alaska"]="ak"; region["Hawaii"]="hi";
+
+    // Colors
+    const colors = {
+      orig:"#FFA500", lp:"#008080", mx:"#C71585",
+      ak:"#4B0082", hi:"#228B22"
+    };
+
+    // D3 + map setup
+    const width=975, height=610;
+    const proj = d3.geoAlbersUsa()
+                   .translate([width/2,height/2])
+                   .scale(1000);
+    const path = d3.geoPath().projection(proj);
+
+    const svg = d3.select("#map")
+      .append("svg")
+      .attr("viewBox",[0,0,width,height])
+      .style("width","100%").style("height","100%");
+
+    // Draw states
+    d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
+      .then(us=> {
+        const states = topojson.feature(us,us.objects.states).features;
+        svg.selectAll("path")
+          .data(states)
+          .join("path")
+          .attr("d",path)
+          .attr("fill","#ddd")
+          .attr("stroke","#fff")
+          .attr("stroke-width",0.5);
+        update(1776);
+      });
+
+    // DOM refs
+    const slider  = document.getElementById("year-slider"),
+          yearD   = document.getElementById("year-display"),
+          info    = document.getElementById("info-panel");
+
+    slider.oninput = ()=> update(+slider.value);
+
+    function update(year){
+      yearD.textContent = year;
+      svg.selectAll("path")
+        .attr("fill",d=>{
+          const n=d.properties.name,
+                a=admission[n]||Infinity;
+          if(year<a) return "#ddd";
+          return colors[region[n]]||"#999";
+        });
+      renderInfo(year);
+    }
+
+    function renderInfo(year){
+      const ev = [
+        {y:1776,id:"orig",label:"Original 13 Colonies",details:"First thirteen states form the Union."},
+        {y:1803,id:"lp",  label:"Louisiana Purchase",   details:"1803: U.S. acquires 828k sq mi from France."},
+        {y:1848,id:"mx",  label:"Mexican Cession",      details:"1848: Treaty adds CA, NV, UT, AZ, NM."},
+        {y:1959,id:"ak",  label:"Alaska Statehood",     details:"1959: Alaska becomes the 49th state."},
+        {y:1959,id:"hi",  label:"Hawaii Statehood",     details:"1959: Hawaii becomes the 50th state."}
+      ].filter(e=>e.y<=year);
+
+      info.innerHTML = ev.map(e=>`
+        <p><strong class="clickable" id="evt-${e.id}">
+          ${e.label} (${e.y})
+        </strong></p>
+        <p class="details" id="det-${e.id}">${e.details}</p>
+      `).join("");
+
+      ev.forEach(e=>{
+        const t=document.getElementById(`evt-${e.id}`),
+              d=document.getElementById(`det-${e.id}`);
+        d.style.display="none";
+        t.onclick = ()=> d.style.display = d.style.display==="none"?"block":"none";
+      });
+    }
+  </script>
+</body>
+</html>

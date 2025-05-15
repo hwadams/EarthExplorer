@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Borders Over Time – Earth Explored</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap" rel="stylesheet"/>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="styles.css"/>
+
+  <style>
+    .country-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:2rem;
+      margin-top:2rem;
+    }
+    .country-item {
+      background:#fff;
+      border-radius:8px;
+      box-shadow:0 4px 6px rgba(0,0,0,0.1);
+      text-align:center;
+      padding:2rem;
+      cursor:pointer;
+      transition:transform .3s,box-shadow .3s;
+    }
+    .country-item:hover {
+      transform:translateY(-5px);
+      box-shadow:0 6px 10px rgba(0,0,0,0.15);
+    }
+    .country-item img {
+      width:80px; height:auto; margin-bottom:1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">Earth Explored</div>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="borders.html" class="active">Borders Over Time</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container" style="text-align:center;">
+        <h2>Borders Over Time</h2>
+        <p>Choose an empire to see its borders evolve.</p>
+
+        <div class="country-grid">
+          <div class="country-item" onclick="location.href='borders-usa.html'">
+            <img src="images/usa-flag.png" alt="United States"/>
+            <h3>United States</h3>
+          </div>
+          <div class="country-item" onclick="location.href='borders-mongol.html'">
+            <img src="images/mongol-emblem.png" alt="Mongol Empire"/>
+            <h3>Mongol Empire</h3>
+          </div>
+          <div class="country-item" onclick="location.href='borders-british.html'">
+            <img src="images/british-flag.png" alt="British Empire"/>
+            <h3>British Empire</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Earth Explored</p>
+    </div>
+  </footer>
+</body>
+</html>

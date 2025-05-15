@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Mongol Empire Over Time</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Montserrat,sans-serif;background:#f5f5f5}
+    .site-header{background:linear-gradient(90deg,#0b3d91,#1e90ff);padding:.5rem}
+    .header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .site-nav a{color:#fff;font-weight:600;margin-left:1rem}
+    #map{height:60vh;width:100%}
+    .controls{background:#fff;padding:1rem 5%;border-top:1px solid #ddd}
+    #year-slider{width:100%;margin:.5rem 0 1rem}
+    #info-panel p{margin-bottom:.5rem;line-height:1.4}
+    #info-panel .clickable{color:#0b3d91;cursor:pointer}
+    #info-panel .details{margin-left:1rem;color:#555;display:none}
+    footer{height:40px}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div style="color:#fff;font-size:1.5rem;font-family:Lora,serif">Earth Explored</div>
+      <nav class="site-nav"><a href="borders.html">← Back</a></nav>
+    </div>
+  </header>
+
+  <div id="map"></div>
+  <div class="controls">
+    <label>Year: <strong id="yr">1206</strong></label>
+    <input id="year-slider" type="range" min="1206" max="1368" step="1" value="1206"/>
+    <div id="info-panel"></div>
+  </div>
+  <footer></footer>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    // timeline events
+    const events = [
+      { y:1206, id:'found',   label:'Founding (1206)',       details:'Genghis Khan unites the Mongol tribes.' },
+      { y:1260, id:'apex',    label:'Empire at Apex (1260)', details:'Reaches from Korea to Europe.' },
+      { y:1368, id:'collapse',label:'Yuan Collapse (1368)',  details:'Southern Song expel Mongols from China.' }
+    ];
+
+    // which ISO_A3 codes are in your empire at each stage
+    const phase1 = ['MNG'];  // 1206–1259
+    const phase2 = [         // 1260–1367
+      'MNG','CHN','KAZ','UZB','KGZ','TKM','AFG','IRN','PAK','TKM','RUS','KOR','MMR'
+    ];
+
+    // colors
+    const colors = { none:'#ddd', early:'#008000', peak:'#800000' };
+
+    // map projection
+    const width=975, height=610;
+    const projection = d3.geoMercator()
+                         .scale(200)
+                         .translate([width/2, height/2]);
+    const path = d3.geoPath(projection);
+
+    // SVG
+    const svg = d3.select('#map')
+      .append('svg')
+      .attr('viewBox',[0,0,width,height])
+      .style('width','100%').style('height','100%');
+
+    // load geojson with ISO_A3 props
+    d3.json('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/countries.geojson')
+      .then(world => {
+        svg.selectAll('path')
+          .data(world.features)
+          .join('path')
+          .attr('d', path)
+          .attr('fill', colors.none)
+          .attr('stroke','#fff')
+          .attr('stroke-width',.5);
+
+        update(1206);
+      });
+
+    // DOM refs
+    const slider = document.getElementById('year-slider');
+    const yrDisp = document.getElementById('yr');
+    const info   = document.getElementById('info-panel');
+
+    slider.oninput = ()=> update(+slider.value);
+
+    function update(year){
+      yrDisp.textContent = year;
+
+      svg.selectAll('path')
+        .attr('fill', d => {
+          const iso = d.properties.ISO_A3;
+          if(year < 1260) {
+            return phase1.includes(iso) ? colors.early : colors.none;
+          } else {
+            return phase2.includes(iso) ? colors.peak : colors.none;
+          }
+        });
+
+      renderInfo(year);
+    }
+
+    function renderInfo(year){
+      info.innerHTML = events
+        .filter(e=>e.y<=year)
+        .map(e=>`
+          <p>
+            <strong class="clickable" id="evt-${e.id}">
+              ${e.label}
+            </strong>
+          </p>
+          <p class="details" id="det-${e.id}">
+            ${e.details}
+          </p>
+        `).join('');
+
+      events.forEach(e => {
+        const t = document.getElementById(`evt-${e.id}`);
+        const d = document.getElementById(`det-${e.id}`);
+        if(!t||!d) return;
+        d.style.display='none';
+        t.onclick = ()=> {
+          d.style.display = (d.style.display==='none')?'block':'none';
+        };
+      });
+    }
+  </script>
+</body>
+</html>
