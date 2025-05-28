@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>US Borders Over Time</title>
+  <style>
+    /* 1) RESET & BASE */
+    * { margin:0; padding:0; box-sizing:border-box }
+    body { font-family:sans-serif; background:#f5f5f5; }
+    a { text-decoration:none; color:inherit; }
+
+    /* 2) HEADER */
+    header {
+      background: linear-gradient(90deg,#0b3d91,#1e90ff);
+      padding:0.75rem;
+      color:#fff;
+      text-align:center;
+      font-weight:600;
+    }
+
+    /* 3) MAP */
+    #map { width:100%; height:60vh; }
+
+    /* 4) CONTROLS PANEL */
+    .controls {
+      max-height:30vh;
+      overflow-y:auto;
+      background:#fff;
+      border-top:1px solid #ddd;
+      padding:1rem 5%;
+    }
+    .controls label { font-weight:bold; }
+    #year-slider { width:100%; margin:0.5rem 0 1rem; }
+    .section-title {
+      font-size:1.1rem;
+      font-weight:600;
+      margin-top:1rem;
+      cursor:pointer;
+      color:#0b3d91;
+    }
+    .details {
+      margin-left:1rem;
+      margin-top:0.5rem;
+      display:none;
+      color:#333;
+      line-height:1.4;
+    }
+
+    /* 5) SVG / D3 STYLES */
+    .state-fill      { stroke:#444; stroke-width:1px }
+    .state-boundary { fill:none; stroke:#444; stroke-width:1px }
+    .region         { fill-opacity:0.4; stroke:none }
+    .label          { font-size:12px; font-weight:bold; fill:#222; pointer-events:none }
+    .leader         { stroke:#222; stroke-width:1px; marker-end:url(#arrow) }
+  </style>
+</head>
+<body>
+
+  <header>US Borders Over Time</header>
+  <div id="map"></div>
+
+  <div class="controls">
+    <label for="year-slider">Year: <span id="year-display">1607</span></label>
+    <input type="range" id="year-slider" min="1607" max="1959" value="1607" step="1"/>
+    <div id="panel"></div>
+  </div>
+
+  <!-- D3 & TopoJSON -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
+  <script>
+  (async function(){
+    // ─── Data ────────────────────────────────────────────────
+    const original13 = [
+      "Delaware","Pennsylvania","New Jersey",
+      "Georgia","Connecticut","Massachusetts",
+      "Maryland","South Carolina","New Hampshire",
+      "Virginia","New York","North Carolina","Rhode Island"
+    ];
+
+    const establishment = {
+      Virginia:1607, Massachusetts:1620, "New Hampshire":1623,
+      Maryland:1634, Connecticut:1636, "Rhode Island":1636,
+      Delaware:1638, "North Carolina":1663, "South Carolina":1663,
+      "New York":1664, "New Jersey":1665, Pennsylvania:1681,
+      Georgia:1732, Texas:1836
+    };
+
+    const admission = {
+      Delaware:1787, Pennsylvania:1787, "New Jersey":1787,
+      Georgia:1788, Connecticut:1788, Massachusetts:1788,
+      Maryland:1788, "South Carolina":1788, "New Hampshire":1788,
+      Virginia:1788, "New York":1788, "North Carolina":1789,
+      "Rhode Island":1790,
+      // rest of the states...
+      Vermont:1791, Kentucky:1792, Tennessee:1796, Ohio:1803,
+      Louisiana:1812, Indiana:1816, Mississippi:1817, Illinois:1818,
+      Alabama:1819, Maine:1820, Missouri:1821, Arkansas:1836,
+      Michigan:1837, Florida:1845, Texas:1845, Iowa:1846,
+      Wisconsin:1848, California:1850, Minnesota:1858, Oregon:1859,
+      Kansas:1861, "West Virginia":1863, Nevada:1864, Nebraska:1867,
+      Colorado:1876, "North Dakota":1889, "South Dakota":1889,
+      Montana:1889, Washington:1889, Idaho:1890, Wyoming:1890,
+      Utah:1896, Oklahoma:1907, "New Mexico":1912, Arizona:1912,
+      Alaska:1959, Hawaii:1959
+    };
+
+    const events = [
+      { id:"lp", title:"Louisiana Purchase",   year:1803, color:"#008080",
+        states:["Louisiana","Arkansas","Missouri","Iowa","Minnesota",
+                "North Dakota","South Dakota","Nebraska","Kansas",
+                "Oklahoma","Montana","Wyoming","Colorado"],
+        details:["The Louisiana Purchase involved the U.S. acquisition of ∼828,000 sq mi from France in 1803, stretching from the Mississippi River to the Rockies. Purchased for $15 million under Jefferson, it doubled the U.S. and secured New Orleans."] },
+      { id:"fl", title:"Adams–Onís Treaty",    year:1819, color:"#0000FF",
+        states:["Florida"],
+        details:["Also called the Transcontinental Treaty, it ceded East & West Florida from Spain in 1819 in exchange for $5 million and U.S. renunciation of Texas claims."] },
+      { id:"tx", title:"Republic of Texas",     year:1836, color:"#FF0000",
+        states:["Texas"],
+        details:["Texas declared independence in 1836, forming the Republic of Texas until its U.S. annexation in 1845."] },
+      { id:"mx", title:"Mexican Cession",       year:1848, color:"#C71585",
+        states:["California","Nevada","Utah","Arizona","New Mexico"],
+        details:["Under the Treaty of Guadalupe Hidalgo (1848), Mexico ceded CA, NV, UT, AZ, NM in exchange for $15 million and assumption of claims."] },
+      { id:"ak", title:"Alaska Purchase",       year:1867, color:"#800080",
+        states:["Alaska"],
+        details:["The U.S. bought Alaska from Russia in 1867 for $7.2 million, negotiated by Seward."] },
+      { id:"hi", title:"Hawaii Annexation",     year:1893, color:"#228B22",
+        states:["Hawaii"],
+        details:["Following the 1893 overthrow of the monarchy, Hawaii was annexed in 1898 during the Spanish–American War."] }
+    ];
+    events.forEach(e=>{
+      e.firstAdmit = Math.min(...e.states.map(s=>admission[s]));
+    });
+
+    // Offsets for small‐state labels
+    const smallStates = {
+      Massachusetts:[40,-50],"New Hampshire":[40,-30],
+      "Rhode Island":[50,-20],Connecticut:[40,-10],
+      Maryland:[50,10],Vermont:[0,-50],
+      Delaware:[80,0],"New Jersey":[80,-10]
+    };
+
+    // ─── D3 + Projection ────────────────────────────────────────
+    const width=975, height=610;
+    const projection = d3.geoAlbersUsa().scale(1000).translate([width/2,height/2]);
+    const path = d3.geoPath(projection);
+
+    const svg = d3.select("#map")
+      .append("svg")
+      .attr("viewBox",[0,0,width,height])
+      .style("width","100%").style("height","100%");
+
+    // arrow marker
+    svg.append("defs")
+      .append("marker")
+        .attr("id","arrow").attr("viewBox","0 -5 10 10")
+        .attr("refX",8).attr("refY",0)
+        .attr("markerWidth",6).attr("markerHeight",6)
+        .attr("orient","auto")
+      .append("path")
+        .attr("d","M0,-5L10,0L0,5")
+        .attr("fill","#222");
+
+    const us = await d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json");
+    const statesTopo = topojson.feature(us,us.objects.states).features;
+    const union     = topojson.merge(us,us.objects.states.geometries);
+
+    // Draw outer border
+    svg.append("path")
+      .datum(union)
+      .attr("d",path)
+      .attr("fill","none")
+      .attr("stroke","#222")
+      .attr("stroke-width",2);
+
+    const regionsG = svg.append("g"),
+          statesG  = svg.append("g"),
+          labelsG  = svg.append("g");
+
+    // Slider hookup
+    const slider = document.getElementById("year-slider"),
+          yearD  = document.getElementById("year-display"),
+          panel  = document.getElementById("panel");
+    slider.oninput = ()=> render(+slider.value);
+    render(+slider.value);
+
+    // ─── RENDER FUNCTION ────────────────────────────────────────
+    function render(year){
+      yearD.textContent = year;
+
+      // 1) State fill
+      statesG.selectAll("path")
+        .data(statesTopo, d=>d.properties.name)
+        .join("path")
+        .attr("class","state-fill state-boundary")
+        .attr("d",path)
+        .attr("fill", d=>{
+          const nm = d.properties.name;
+          // Texas stays red after 1836
+          if(nm==="Texas" && year>=1836) return "#FF0000";
+
+          // Original 13 logic
+          if(original13.includes(nm)){
+            if(year < establishment[nm])     return "none";
+            if(year < admission[nm])          return "#FF0000";  // colonial red
+                                              return "#FFA500";  // state yellow
+          }
+
+          // All other states admitted → grey
+          if(year >= (admission[nm]||9999)) return "#555555";
+
+          return "none";
+        });
+
+      // 2) Acquisition overlays
+      regionsG.selectAll("*").remove();
+      labelsG.selectAll("text.reg-label, line.reg-leader").remove();
+
+      events.forEach(e=>{
+        if(year >= e.year){
+          // merge geometries
+          const geoms = us.objects.states.geometries.filter(g=>{
+            const f = statesTopo.find(s=>s.id===g.id);
+            return e.states.includes(f.properties.name);
+          });
+          const merged = topojson.merge(us,geoms);
+
+          // draw region
+          regionsG.append("path")
+            .datum(merged)
+            .attr("class","region")
+            .attr("d",path)
+            .attr("fill",e.color);
+
+          // label until firstAdmit
+          if(year < e.firstAdmit){
+            if(e.id==="fl"){
+              // off‐map Florida arrow
+              const fl = statesTopo.find(s=>s.properties.name==="Florida");
+              const [fx,fy] = path.centroid(fl);
+              const [lx,ly] = [fx+30, fy-20];
+              labelsG.append("line")
+                .attr("class","reg-leader")
+                .attr("x1",fx).attr("y1",fy)
+                .attr("x2",lx).attr("y2",ly)
+                .attr("marker-end","url(#arrow)");
+              labelsG.append("text")
+                .attr("class","label reg-label")
+                .attr("x",lx).attr("y",ly)
+                .attr("dy","0.35em")
+                .text(e.title);
+            } else if(e.id==="tx"){
+              // offset Texas
+              const [cx,cy] = path.centroid(merged);
+              const [lx,ly] = [cx+50, cy-20];
+              labelsG.append("line")
+                .attr("class","reg-leader")
+                .attr("x1",cx).attr("y1",cy)
+                .attr("x2",lx).attr("y2",ly)
+                .attr("marker-end","url(#arrow)");
+              labelsG.append("text")
+                .attr("class","label reg-label")
+                .attr("x",lx).attr("y",ly)
+                .attr("dy","0.35em")
+                .text(e.title);
+            } else {
+              const [cx,cy] = path.centroid(merged);
+              labelsG.append("text")
+                .attr("class","label reg-label")
+                .attr("x",cx).attr("y",cy)
+                .attr("dy","0.35em")
+                .text(e.title);
+            }
+          }
+        }
+      });
+
+      // 3) State labels + leaders
+      labelsG.selectAll("text.state-label, line.leader").remove();
+      statesG.selectAll("path").each(function(d){
+        const nm = d.properties.name;
+        const didEst = establishment[nm] && year >= establishment[nm];
+        const didAdm = admission[nm] && year >= admission[nm];
+        if(didEst || didAdm){
+          let [x,y] = path.centroid(d);
+          if(smallStates[nm]){
+            const [dx,dy] = smallStates[nm];
+            labelsG.append("line")
+              .attr("class","leader")
+              .attr("x1",x).attr("y1",y)
+              .attr("x2",x+dx).attr("y2",y+dy)
+              .attr("marker-end","url(#arrow)");
+            x += dx; y += dy;
+          }
+          labelsG.append("text")
+            .attr("class","label state-label")
+            .attr("x",x).attr("y",y)
+            .attr("dy","0.35em")
+            .text(
+              nm==="Texas" ? 1836
+              : (didAdm ? admission[nm] : establishment[nm])
+            );
+        }
+      });
+
+      // 4) Side‐panel
+      panel.innerHTML = "";
+
+      // Original 13 Colonies
+      if(year >= 1607){
+        const h0 = document.createElement("div");
+        h0.className = "section-title";
+        h0.textContent = "Original 13 Colonies (1607–1790)";
+        panel.appendChild(h0);
+        const d0 = document.createElement("div");
+        d0.className="details";
+        d0.style.display = year < 1787 ? "block" : "none";
+        original13.forEach(nm=>{
+          const yr = establishment[nm];
+          if(yr <= year && yr < 1787){
+            const p = document.createElement("p");
+            p.textContent = `${yr} – ${nm}`;
+            d0.appendChild(p);
+          }
+        });
+        panel.appendChild(d0);
+        h0.onclick = ()=> d0.style.display = d0.style.display==="block"?"none":"block";
+      }
+
+      // First States
+      if(year >= 1787 && year < 1803){
+        const h1 = document.createElement("div");
+        h1.className = "section-title";
+        h1.textContent = "First States (1787–1803)";
+        panel.appendChild(h1);
+        const d1 = document.createElement("div");
+        d1.className="details"; d1.style.display="none";
+        Object.entries(admission)
+          .sort((a,b)=>a[1]-b[1])
+          .forEach(([nm,yr])=>{
+            if(yr >= 1787 && yr < 1803 && yr <= year){
+              const p = document.createElement("p");
+              p.textContent = `${yr} – ${nm}`;
+              d1.appendChild(p);
+            }
+          });
+        panel.appendChild(d1);
+        h1.onclick = ()=> d1.style.display = d1.style.display==="block"?"none":"block";
+      }
+
+      // Louisiana Purchase
+      if(year>=1803){
+        const h2 = document.createElement("div");
+        h2.className="section-title";
+        h2.textContent="Louisiana Purchase (1803)";
+        panel.appendChild(h2);
+        const d2 = document.createElement("div");
+        d2.className="details"; d2.style.display="none";
+        events.find(e=>e.id==="lp").details.forEach(txt=>{
+          const p=document.createElement("p");
+          p.textContent=txt;
+          d2.appendChild(p);
+        });
+        panel.appendChild(d2);
+        h2.onclick = ()=> d2.style.display = d2.style.display==="block"?"none":"block";
+      }
+
+      // Adams–Onís Treaty
+      if(year>=1819){
+        const h3 = document.createElement("div");
+        h3.className="section-title";
+        h3.textContent="Adams–Onís Treaty (1819)";
+        panel.appendChild(h3);
+        const d3 = document.createElement("div");
+        d3.className="details"; d3.style.display="none";
+        events.find(e=>e.id==="fl").details.forEach(txt=>{
+          const p=document.createElement("p");
+          p.textContent=txt;
+          d3.appendChild(p);
+        });
+        panel.appendChild(d3);
+        h3.onclick = ()=> d3.style.display = d3.style.display==="block"?"none":"block";
+      }
+
+      // Republic of Texas
+      if(year>=1836){
+        const h4 = document.createElement("div");
+        h4.className="section-title";
+        h4.textContent="Republic of Texas (1836–1845)";
+        panel.appendChild(h4);
+        const d4 = document.createElement("div");
+        d4.className="details"; d4.style.display="none";
+        events.find(e=>e.id==="tx").details.forEach(txt=>{
+          const p=document.createElement("p");
+          p.textContent=txt;
+          d4.appendChild(p);
+        });
+        panel.appendChild(d4);
+        h4.onclick = ()=> d4.style.display = d4.style.display==="block"?"none":"block";
+      }
+
+      // Mexican Cession
+      if(year>=1848){
+        const h5 = document.createElement("div");
+        h5.className="section-title";
+        h5.textContent="Mexican Cession (1848)";
+        panel.appendChild(h5);
+        const d5 = document.createElement("div");
+        d5.className="details"; d5.style.display="none";
+        events.find(e=>e.id==="mx").details.forEach(txt=>{
+          const p=document.createElement("p");
+          p.textContent=txt;
+          d5.appendChild(p);
+        });
+        panel.appendChild(d5);
+        h5.onclick = ()=> d5.style.display = d5.style.display==="block"?"none":"block";
+      }
+
+      // Alaska Purchase
+      if(year>=1867){
+        const h6 = document.createElement("div");
+        h6.className="section-title";
+        h6.textContent="Alaska Purchase (1867)";
+        panel.appendChild(h6);
+        const d6 = document.createElement("div");
+        d6.className="details"; d6.style.display="none";
+        events.find(e=>e.id==="ak").details.forEach(txt=>{
+          const p=document.createElement("p");
+          p.textContent=txt;
+          d6.appendChild(p);
+        });
+        panel.appendChild(d6);
+        h6.onclick = ()=> d6.style.display = d6.style.display==="block"?"none":"block";
+      }
+
+      // Hawaii Annexation
+      if(year>=1893){
+        const h7 = document.createElement("div");
+        h7.className="section-title";
+        h7.textContent="Hawaii Annexation (1893)";
+        panel.appendChild(h7);
+        const d7 = document.createElement("div");
+        d7.className="details"; d7.style.display="none";
+        events.find(e=>e.id==="hi").details.forEach(txt=>{
+          const p=document.createElement("p"); p.textContent=txt;
+          d7.appendChild(p);
+        });
+        panel.appendChild(d7);
+        h7.onclick = ()=> d7.style.display = d7.style.display==="block"?"none":"block";
+      }
+    }
+  })();
+  </script>
+</body>
+</html>
