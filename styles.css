@@ -1,178 +1,230 @@
-/* styles.css */
-
-/*———————— Reset & Base ————————*/
-* {
+/* ───────────────────────────────────────────────────────────────────────── */
+/*                             RESET & BASE STYLE                            */
+/* ───────────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
-  scroll-behavior: smooth;
+  font-size: 16px;
 }
+
 body {
   font-family: 'Montserrat', sans-serif;
   line-height: 1.6;
   color: #333;
-  background: #f5f5f5;
+  background: #fff;
 }
+
+/* Utility container */
 .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/*———————— Header ————————*/
-.site-header {
-  background: #0053a0;
-  height: 60px;
+/* Utility text-center */
+.text-center {
+  text-align: center;
 }
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/*                                HEADER                                     */
+/* ───────────────────────────────────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(90deg, #0052cc, #007bff);
+  padding: 0.5rem 0;
+}
+
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
 }
+
 .logo {
   display: flex;
   align-items: center;
 }
+
 .site-logo {
-  height: 60px;         /* was 40px, now larger */
+  height: 48px;
   width: auto;
-  margin-right: 12px;
+  margin-right: 0.75rem;
 }
-.logo span {
-  color: #fff;
-  font-size: 1.75rem;    /* bumped up for “Curious Earth” */
+
+.site-title {
+  font-size: 1.75rem;
   font-weight: 700;
+  color: #fff;
 }
+
+/* Navigation */
 .site-nav ul {
   list-style: none;
   display: flex;
+  gap: 1.5rem;
 }
-.site-nav li {
-  margin-left: 20px;
-}
+
 .site-nav a {
   color: #fff;
   text-decoration: none;
   font-weight: 600;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s ease;
 }
+
 .site-nav a:hover {
   opacity: 0.8;
 }
 
-/*———————— Hero Section ————————*/
+/* ───────────────────────────────────────────────────────────────────────── */
+/*                                 HERO                                      */
+/* ───────────────────────────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  height: 60vh;
   background-size: cover;
   background-position: center;
+  height: 60vh;
   display: flex;
   align-items: center;
 }
+
 .hero-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
 }
+
 .hero-content {
   position: relative;
   color: #fff;
-  max-width: 700px;
-  width: 100%;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
+  width: 100%;
+  padding: 0 1rem;
 }
+
 .hero-content h1 {
   font-family: 'Lora', serif;
   font-size: 3rem;
   margin-bottom: 1rem;
 }
-.rotating-text {
-  font-size: 1.5rem;
-  min-height: 2rem;
-  overflow: hidden;
-}
-.rotating-text span {
-  display: block;
-  animation: rollUp 0.5s ease-in-out;
-}
-@keyframes rollUp {
-  from { transform: translateY(100%); opacity: 0; }
-  to   { transform: translateY(0);   opacity: 1; }
+
+.hero-content .rotating-text {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  min-height: 1.5rem;
+  transition: opacity 0.5s ease;
 }
 
-/*———————— Buttons ————————*/
+/* ───────────────────────────────────────────────────────────────────────── */
+/*                                  BUTTONS                                  */
+/* ───────────────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  border-radius: 5px;
+  border-radius: 4px;
   text-decoration: none;
   font-weight: 600;
-  transition: background 0.3s;
-}
-.btn-primary {
-  background: #ffd400;
-  color: #003366;
-  margin-top: 1.5rem;
-}
-.btn-primary:hover {
-  background: #e6c800;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/*———————— Sections ————————*/
+.btn-primary {
+  background: #ffc107;
+  color: #003366;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/*                                 SECTIONS                                  */
+/* ───────────────────────────────────────────────────────────────────────── */
+/* restored to “old” styling for alternating backgrounds and Lora headings */
 .section {
   padding: 4rem 0;
+  background: #fff;
+}
+.section:nth-of-type(even) {
+  background: #f9f9f9;
 }
 .section h2 {
-  font-size: 2.5rem;
+  font-family: 'Lora', serif;
+  font-size: 2rem;
+  text-align: center;
   margin-bottom: 1rem;
+  color: #0b3d91;
 }
 .section p {
-  font-size: 1.125rem;
+  font-size: 1.1rem;
   max-width: 800px;
   margin: 0 auto;
+  color: #555;
 }
 
-/*———————— Feature Grid ————————*/
+/* ───────────────────────────────────────────────────────────────────────── */
+/*                              FEATURE GRID                                */
+/* ───────────────────────────────────────────────────────────────────────── */
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
+
 .feature-item {
   text-align: center;
 }
-.feature-item h3 {
-  margin-top: 0.5rem;
-  font-size: 1.25rem;
-}
+
 .section-image {
   width: 100%;
-  height: auto;
-  border-radius: 5px;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  object-fit: cover;
 }
 
-/*———————— Footer ————————*/
+/* ───────────────────────────────────────────────────────────────────────── */
+/*                                 FOOTER                                    */
+/* ───────────────────────────────────────────────────────────────────────── */
+/* restored to old, vibrant footer styling from your first CSS */
 .site-footer {
-  background: #003366;
+  background: #0b3d91;
   color: #fff;
-  padding: 2rem 0;
   text-align: center;
-  font-size: 0.9rem;
+  padding: 2rem 0;
+}
+.site-footer h2 {
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+.site-footer p {
+  margin: 0.5rem 0;
 }
 .site-footer a {
-  color: #ffd400;
+  color: #ffd700;
   text-decoration: none;
 }
 .site-footer a:hover {
-  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/*                              RESPONSIVE TWEAKS                            */
+/* ───────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .hero-content .rotating-text {
+    font-size: 1.1rem;
+  }
+  .site-nav ul {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 }
