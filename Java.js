@@ -1,6 +1,5 @@
 // phrases to cycle through
 const phrases = [
-  "See live weather worldwide",
   "Animate live weather worldwide",
   "Play geography games",
   "Document your own travels"
