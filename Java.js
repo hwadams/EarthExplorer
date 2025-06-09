@@ -1,21 +1,22 @@
-// phrases to cycle through
-const phrases = [
-  "Animate live weather worldwide",
-  "Play geography games",
-  "Document your own travels"
+// Java.js
+const messages = [
+  'See live weather worldwide',
+  'Track flights in real time',
+  'Reveal historical borders',
+  'Share your own travel stories'
 ];
 
 let index = 0;
-const container = document.getElementById("rotating-text");
+const rotatingElement = document.getElementById('rotating-text');
 
-function rotateText() {
-  // Inject a <span> around the phrase so the CSS animation applies
-  container.innerHTML = `<span>${phrases[index]}</span>`;
-  index = (index + 1) % phrases.length;
+function rotate() {
+  rotatingElement.textContent = messages[index];
+  rotatingElement.classList.remove('fade-in');
+  // Trigger reflow to restart animation
+  void rotatingElement.offsetWidth;
+  rotatingElement.classList.add('fade-in');
+  index = (index + 1) % messages.length;
 }
 
-// Wait until the DOM is fully loaded, then start rotating
-document.addEventListener("DOMContentLoaded", () => {
-  rotateText();                   // show the first phrase immediately
-  setInterval(rotateText, 4000);  // switch every 4 seconds
-});
+setInterval(rotate, 3000);
+window.addEventListener('DOMContentLoaded', rotate);

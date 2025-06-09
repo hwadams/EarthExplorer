@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Curious Earth</title>
 
   <!-- Google Fonts -->
@@ -11,7 +11,7 @@
     rel="stylesheet"
   />
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome (optional) -->
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     rel="stylesheet"
@@ -19,120 +19,578 @@
 
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="logo">
-        <!-- Transparent globe logo -->
-        <img
-          src="images/globe-transparent.png"
-          alt="Curious Earth Logo"
-          class="site-logo"
-        />
-        <span class="site-title">Curious Earth</span>
+  <!-- Inline CSS for the “How It Works” step‐layout -->
+  <style>
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /* HOW IT WORKS: Four columns with numbered circles, labels, images, and descriptions */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .how-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .step-item {
+      width: 23%;
+      min-width: 180px; /* prevents shrinking too small on narrow screens */
+      text-align: center;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step-header {
+      /* force same height for circle + label block */
+      min-height: 4.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.5rem;
+      border: 2px solid #003366;       /* dark-blue circle border */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: #003366;
+      font-weight: 600;
+    }
+    .step-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #003366;
+      margin: 0;
+      line-height: 1.2;
+    }
+    .step-img-wrapper {
+      width: 100%;
+      height: 200px;           /* fixed wrapper height */
+      overflow: hidden;
+      margin-top: 0.75rem;
+      border-radius: 8px;
+    }
+    .step-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;       /* crop-center any overflow */
+      object-position: top;    /* align image tops */
+      display: block;
+    }
+    .step-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 0.75rem;
+      line-height: 1.3;
+    }
+    /* On small screens, stack steps vertically */
+    @media (max-width: 768px) {
+      .how-steps {
+        flex-direction: column;
+        align-items: center;
+      }
+      .step-item {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!-- HEADER (white background, black nav text)                                -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <header
+    class="site-header"
+    style="
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    "
+  >
+    <div
+      class="container header-inner"
+      style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0;"
+    >
+      <div class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+        <a
+          href="index.html"
+          style="display: flex; align-items: center; text-decoration: none;"
+        >
+          <img
+            src="images/globe-transparent.png"
+            alt="Curious Earth Logo"
+            class="site-logo"
+            style="height: 48px; width: auto;"
+          />
+          <span
+            class="site-title"
+            style="
+              font-family: 'Lora', serif;
+              font-size: 1.5rem;
+              font-weight: 700;
+              color: #000;
+              margin-left: 0.5rem;
+            "
+          >
+            Curious Earth
+          </span>
+        </a>
       </div>
+
       <nav class="site-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="features.html">Features</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="borders.html">Borders Over Time</a></li>
-          <li><a href="explorer.html">Explorer</a></li>
+        <ul
+          style="
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+          "
+        >
+          <li><a href="#globes" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Globes</a></li>
+          <li><a href="#how-it-works" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">How It Works</a></li>
+          <li><a href="#features" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Features</a></li>
+          <li><a href="content.html" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Content</a></li>
+          <li><a href="schools.html" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Schools</a></li>
+          <li><a href="businesses.html" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Businesses</a></li>
+          <li><a href="order-now.html" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Order Now</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" style="background-image:url('images/hero-earth.jpg')">
-    <div class="hero-overlay"></div>
-    <div class="container hero-content">
-      <h1>Your gateway to exploring our world</h1>
-      <p class="rotating-text" id="rotating-text">See live weather worldwide</p>
-      <a href="features.html" class="btn btn-primary">Explore Features</a>
+  <!-- Spacer for fixed header -->
+  <div style="height: 80px;"></div>
+
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!-- HERO SECTION (height: 60vh)                                               -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <section
+    class="hero"
+    style="
+      position: relative;
+      background-image: url('images/hero-earth.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <div class="hero-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.4);"></div>
+    <div
+      class="container hero-content"
+      style="position: relative; text-align: center; color: #fff; padding: 0 1rem;"
+    >
+      <h1 style="font-family: 'Lora', serif; font-size: 3rem; margin-bottom: 1rem;">
+        Your gateway to exploring our world
+      </h1>
+      <p
+        class="rotating-text"
+        id="rotating-text"
+        style="font-size: 1.25rem; margin-bottom: 1.5rem; min-height: 1.5rem;"
+      >
+        See live weather worldwide
+      </p>
+      <a
+        href="#features"
+        class="btn btn-primary"
+        style="
+          background: #ffc107;
+          color: #003366;
+          padding: 0.75rem 1.5rem;
+          border-radius: 4px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: background 0.3s;
+        "
+      >
+        Explore Features
+      </a>
     </div>
   </section>
 
-  <!-- MAIN CONTENT -->
-  <main>
-    <!-- WHO WE ARE -->
-    <section class="section">
-      <div class="container text-center">
-        <h2>Welcome to Curious Earth</h2>
-        <p>
-          Curious Earth brings planetary data to your fingertips—melding weather, 
-          history, flight paths, and user-generated content in one seamless interactive globe. 
-          Our platform empowers students, researchers, travelers, and curious minds to uncover 
-          insights about our planet in real time, with beautiful visuals and intuitive controls.
-        </p>
-      </div>
-    </section>
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!-- GLOBES SECTION                                                            -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <section id="globes" class="section section-light" style="padding: 4rem 0; background: #fff;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto;">
+      <h2
+        style="
+          font-family: 'Lora', serif;
+          font-size: 2rem;
+          color: #003366;
+          margin-bottom: 1rem;
+          text-align: center;
+        "
+      >
+        Globes
+      </h2>
+      <p
+        style="
+          font-size: 1.1rem;
+          color: #555;
+          max-width: 800px;
+          margin: 0 auto 2rem;
+          text-align: center;
+        "
+      >
+        Choose the right globe for your needs—whether at home, in schools, or for business installations.
+      </p>
 
-    <!-- FEATURES PREVIEW -->
-    <section class="section">
-      <div class="container">
-        <h2>At a Glance</h2>
-        <div class="feature-grid">
-          <div class="feature-item">
+      <div
+        class="globes-grid"
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 2rem;
+          align-items: start;
+        "
+      >
+        <!-- CONSUMER CARD -->
+        <div
+          class="globe-card"
+          style="
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            text-align: center;
+          "
+        >
+          <div
+            class="globe-image-wrapper"
+            style="
+              width: 100%;
+              padding-top: 56.25%; /* 16:9 aspect ratio */
+              position: relative;
+            "
+          >
             <img
-              src="images/feature-weather.jpg"
-              alt="Weather Layers"
-              class="section-image"
+              src="images/consumer_globe_photo.jpg"
+              alt="Consumer Globe"
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              "
             />
-            <h3>Weather Layers</h3>
           </div>
-          <div class="feature-item">
-            <img
-              src="images/feature-history.jpg"
-              alt="Historical Timelines"
-              class="section-image"
-            />
-            <h3>Historical Timelines</h3>
+          <div style="padding: 1rem;">
+            <h3
+              style="
+                font-family: 'Montserrat', sans-serif;
+                font-size: 1.25rem;
+                color: #333;
+                margin: 0;
+              "
+            >
+              Consumer
+            </h3>
           </div>
-          <div class="feature-item">
+        </div>
+
+        <!-- SCHOOLS CARD -->
+        <div
+          class="globe-card"
+          style="
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            text-align: center;
+          "
+        >
+          <div
+            class="globe-image-wrapper"
+            style="
+              width: 100%;
+              padding-top: 56.25%;
+              position: relative;
+            "
+          >
             <img
-              src="images/feature-tracking.jpg"
-              alt="Live Tracking"
-              class="section-image"
+              src="images/kids_gathered_around_globe.jpg"
+              alt="Schools Globe"
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              "
             />
-            <h3>Live Tracking</h3>
+          </div>
+          <div style="padding: 1rem;">
+            <h3
+              style="
+                font-family: 'Montserrat', sans-serif;
+                font-size: 1.25rem;
+                color: #333;
+                margin: 0;
+              "
+            >
+              Schools
+            </h3>
+          </div>
+        </div>
+
+        <!-- BUSINESS CARD -->
+        <div
+          class="globe-card"
+          style="
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            text-align: center;
+          "
+        >
+          <div
+            class="globe-image-wrapper"
+            style="
+              width: 100%;
+              padding-top: 56.25%;
+              position: relative;
+            "
+          >
+            <img
+              src="images/lobby_globe.png"
+              alt="Business Globe"
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              "
+            />
+          </div>
+          <div style="padding: 1rem;">
+            <h3
+              style="
+                font-family: 'Montserrat', sans-serif;
+                font-size: 1.25rem;
+                color: #333;
+                margin: 0;
+              "
+            >
+              Business
+            </h3>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SERVICES PREVIEW -->
-    <section class="section">
-      <div class="container text-center">
-        <h2>Services We Offer</h2>
-        <p>
-          From interactive APIs to 3D physical globes, explore our full suite of
-          offerings. <a href="services.html">See all services →</a>
-        </p>
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!-- HOW IT WORKS SECTION                                                      -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <section id="how-it-works" class="section section-gray" style="padding: 4rem 0; background: #f9f9f9;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto;">
+      <h2
+        style="
+          font-family: 'Lora', serif;
+          font-size: 2rem;
+          color: #003366;
+          margin-bottom: 2rem;
+          text-align: center;
+        "
+      >
+        How It Works
+      </h2>
+      <div class="how-steps">
+        <!-- STEP 1: Buy Globe -->
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-circle">1</div>
+            <p class="step-label">Step 1: Buy Globe</p>
+          </div>
+          <div class="step-img-wrapper">
+            <img
+              src="images/globe-step.png"
+              alt="Buy Globe"
+              class="step-image"
+            />
+          </div>
+          <p class="step-desc">Pick the globe that fits your needs – home, school, or business use.</p>
+        </div>
+
+        <!-- STEP 2: Connect to WiFi -->
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-circle">2</div>
+            <p class="step-label">Step 2: Connect to WiFi</p>
+          </div>
+          <div class="step-img-wrapper">
+            <img
+              src="images/wifi-step.png"
+              alt="Connect to WiFi"
+              class="step-image"
+            />
+          </div>
+          <p class="step-desc">Set your globe up on WiFi and control it via the cloud.</p>
+        </div>
+
+        <!-- STEP 3: Choose Your Free Content -->
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-circle">3</div>
+            <p class="step-label">Step 3: Choose Your Free Content</p>
+          </div>
+          <div class="step-img-wrapper">
+            <img
+              src="images/feature-weather.jpg"
+              alt="Choose Free Content"
+              class="step-image"
+            />
+          </div>
+          <p class="step-desc">Pick from hundreds of free content options to explore our Earth.</p>
+        </div>
+
+        <!-- STEP 4: Explore Subscriber Content -->
+        <div class="step-item">
+          <div class="step-header">
+            <div class="step-circle">4</div>
+            <p class="step-label">Step 4: Explore Subscriber Content</p>
+          </div>
+          <div class="step-img-wrapper">
+            <img
+              src="images/feature-map.jpg"
+              alt="Explore Subscriber Content"
+              class="step-image"
+            />
+          </div>
+          <p class="step-desc">Select unique content to enjoy from our fantastic partners.</p>
+        </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container text-center">
-      <h2>Get in Touch</h2>
-      <p>
-        Email:
-        <a href="mailto:info@curiousearth.com">info@curiousearth.com</a>
-        |
-        Phone: +1 (555) 123-4567
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!-- FEATURES SECTION                                                          -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <section id="features" class="section section-light" style="padding: 4rem 0; background: #fff;">
+    <div class="container text-center" style="max-width: 1200px; margin: 0 auto;">
+      <h2
+        style="
+          font-family: 'Lora', serif;
+          font-size: 2rem;
+          color: #003366;
+          margin-bottom: 1rem;
+        "
+      >
+        At a Glance
+      </h2>
+      <p
+        style="
+          font-size: 1.1rem;
+          color: #555;
+          max-width: 800px;
+          margin: 0 auto 2rem;
+        "
+      >
+        Discover at a glance what makes Curious Earth so powerful: live data, layered insights, and user contributions—all on one platform.
       </p>
-      <p>© 2025 Curious Earth. All rights reserved.</p>
+      <div
+        class="feature-grid"
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 2rem;
+        "
+      >
+        <div class="feature-item" style="text-align: center;">
+          <img
+            src="images/feature-weather.jpg"
+            alt="Weather Layers"
+            class="section-image"
+            style="width: 100%; border-radius: 8px; margin-bottom: 1rem; object-fit: cover;"
+          />
+          <h3
+            style="
+              font-family: 'Montserrat', sans-serif;
+              font-size: 1.25rem;
+              color: #333;
+            "
+          >
+            Weather Layers
+          </h3>
+        </div>
+        <div class="feature-item" style="text-align: center;">
+          <img
+            src="images/feature-history.jpg"
+            alt="Historical Timelines"
+            class="section-image"
+            style="width: 100%; border-radius: 8px; margin-bottom: 1rem; object-fit: cover;"
+          />
+          <h3
+            style="
+              font-family: 'Montserrat', sans-serif;
+              font-size: 1.25rem;
+              color: #333;
+            "
+          >
+            Historical Timelines
+          </h3>
+        </div>
+        <div class="feature-item" style="text-align: center;">
+          <img
+            src="images/feature-tracking.jpg"
+            alt="Live Tracking"
+            class="section-image"
+            style="width: 100%; border-radius: 8px; margin-bottom: 1rem; object-fit: cover;"
+          />
+          <h3
+            style="
+              font-family: 'Montserrat', sans-serif;
+              font-size: 1.25rem;
+              color: #333;
+            "
+          >
+            Live Tracking
+          </h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <!-- FOOTER                                                                    -->
+  <!-- ───────────────────────────────────────────────────────────────────────── -->
+  <footer
+    class="site-footer"
+    style="
+      background: #fff;
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid #e2e2e2;
+    "
+  >
+    <div class="container text-center" style="max-width: 800px; margin: 0 auto;">
+      <p style="color: #555;">© 2025 Curious Earth. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Rotating text script -->
+  <!-- Rotating text script (unchanged) -->
   <script src="Java.js"></script>
 </body>
 </html>

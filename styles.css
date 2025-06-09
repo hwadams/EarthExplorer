@@ -36,135 +36,185 @@ body {
 /*                                HEADER                                     */
 /* ───────────────────────────────────────────────────────────────────────── */
 .site-header {
-  background: linear-gradient(90deg, #0052cc, #007bff);
-  padding: 0.5rem 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 1rem;
+  height: 80px; /* total header height */
 }
 
 .logo {
   display: flex;
   align-items: center;
+  gap: 0.75rem;
 }
 
 .site-logo {
-  height: 48px;
+  height: 64px; /* twice as big if originally 32px */
   width: auto;
-  margin-right: 0.75rem;
 }
 
 .site-title {
+  font-family: 'Lora', serif;
   font-size: 1.75rem;
   font-weight: 700;
-  color: #fff;
-}
-
-/* Navigation */
-.site-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-}
-
-.site-nav a {
-  color: #fff;
+  color: #000000;
   text-decoration: none;
-  font-weight: 600;
-  transition: opacity 0.2s ease;
 }
 
-.site-nav a:hover {
+.site-title:hover {
   opacity: 0.8;
 }
 
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.site-nav a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.site-nav a:hover {
+  color: #007aff;
+}
+
 /* ───────────────────────────────────────────────────────────────────────── */
-/*                                 HERO                                      */
+/*                   OFFSET MAIN CONTENT FOR FIXED HEADER                     */
+/* ───────────────────────────────────────────────────────────────────────── */
+/* Add top padding equal to header height + a small gap: 80px + 16px */
+.main-content {
+  padding-top: 96px; /* 80px header + 16px extra */
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/*                                HERO & ROTATING TEXT                         */
 /* ───────────────────────────────────────────────────────────────────────── */
 .hero {
   position: relative;
   background-size: cover;
   background-position: center;
-  height: 60vh;
+  height: 80vh;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .hero-content {
   position: relative;
-  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
   text-align: center;
-  width: 100%;
   padding: 0 1rem;
 }
 
 .hero-content h1 {
+  color: #fff;
   font-family: 'Lora', serif;
   font-size: 3rem;
-  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
-.hero-content .rotating-text {
-  font-size: 1.25rem;
-  margin-bottom: 1.5rem;
-  min-height: 1.5rem;
-  transition: opacity 0.5s ease;
+.rotating-text {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 400;
+  height: 1.4em;
+  overflow: hidden;
+}
+
+.rotating-text span {
+  display: inline-block;
+  animation: rollIn 0.6s ease-in-out;
+}
+
+@keyframes rollIn {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.hero-content .btn-primary {
+  margin-top: 0.5rem;
 }
 
 /* ───────────────────────────────────────────────────────────────────────── */
-/*                                  BUTTONS                                  */
+/*                                 BUTTON                                 */
 /* ───────────────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
-  text-decoration: none;
   font-weight: 600;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+  transition: background 0.3s;
 }
 
 .btn-primary {
-  background: #ffc107;
+  background: #ffd700;
   color: #003366;
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+  background: #e6c200;
 }
 
 /* ───────────────────────────────────────────────────────────────────────── */
 /*                                 SECTIONS                                  */
 /* ───────────────────────────────────────────────────────────────────────── */
-/* restored to “old” styling for alternating backgrounds and Lora headings */
 .section {
   padding: 4rem 0;
   background: #fff;
 }
+
 .section:nth-of-type(even) {
   background: #f9f9f9;
 }
+
 .section h2 {
   font-family: 'Lora', serif;
   font-size: 2rem;
   text-align: center;
   margin-bottom: 1rem;
   color: #0b3d91;
+  /* Ensure headings aren’t hidden behind fixed header when linking with anchors */
+  scroll-margin-top: 120px;
 }
+
 .section p {
-  font-size: 1.1rem;
   max-width: 800px;
   margin: 0 auto;
+  text-align: center;
   color: #555;
+  font-size: 1.1rem;
 }
 
 /* ───────────────────────────────────────────────────────────────────────── */
@@ -172,59 +222,56 @@ body {
 /* ───────────────────────────────────────────────────────────────────────── */
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
 
 .feature-item {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.section-image {
+.feature-item img {
   width: 100%;
-  border-radius: 8px;
-  margin-bottom: 0.75rem;
-  object-fit: cover;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 1rem;
 }
 
 /* ───────────────────────────────────────────────────────────────────────── */
 /*                                 FOOTER                                    */
 /* ───────────────────────────────────────────────────────────────────────── */
-/* restored to old, vibrant footer styling from your first CSS */
 .site-footer {
   background: #0b3d91;
   color: #fff;
   text-align: center;
   padding: 2rem 0;
 }
-.site-footer h2 {
-  margin-bottom: 0.5rem;
-  color: #fff;
-}
-.site-footer p {
-  margin: 0.5rem 0;
-}
+
 .site-footer a {
   color: #ffd700;
   text-decoration: none;
-}
-.site-footer a:hover {
-  text-decoration: underline;
 }
 
 /* ───────────────────────────────────────────────────────────────────────── */
 /*                              RESPONSIVE TWEAKS                            */
 /* ───────────────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 2.5rem;
-  }
-  .hero-content .rotating-text {
-    font-size: 1.1rem;
-  }
   .site-nav ul {
     flex-wrap: wrap;
     gap: 1rem;
+  }
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .rotating-text {
+    font-size: 1.1rem;
+  }
+  .section h2 {
+    font-size: 1.75rem;
   }
 }
