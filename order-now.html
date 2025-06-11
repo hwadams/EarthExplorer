@@ -2,89 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Order Now – Curious Earth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Coming Soon – Curious Earth</title>
 
   <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap"
     rel="stylesheet"
   />
-
-  <!-- Font Awesome (optional) -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    rel="stylesheet"
-  />
-
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <!-- HEADER (same as index.html) -->
   <header class="site-header">
     <div class="container header-inner">
-      <div class="logo">
-        <a href="index.html">
-          <img
-            src="images/globe-transparent.png"
-            alt="Curious Earth Logo"
-            class="site-logo"
-          />
-        </a>
-        <a href="index.html" class="site-title">Curious Earth</a>
-      </div>
+      <a href="index.html" class="logo">
+        <img src="images/globe-transparent.png" alt="Curious Earth Logo" class="site-logo"/>
+        <span class="site-title">Curious Earth</span>
+      </a>
       <nav class="site-nav">
         <ul>
-          <li><a href="index.html#globes">Globes</a></li>
+          <li><a href="globes.html">Globes</a></li>
           <li><a href="index.html#how-it-works">How It Works</a></li>
-          <li><a href="index.html#features">Features</a></li>
           <li><a href="content.html">Content</a></li>
-          <li><a href="schools.html">Schools</a></li>
-          <li><a href="businesses.html">Businesses</a></li>
-          <li><a href="order-now.html">Order Now</a></li>
+          <li><a href="order-now.html" class="active">Order Now</a></li>
         </ul>
       </nav>
     </div>
   </header>
+  <div style="height:80px;"></div>
 
-  <!-- MAIN CONTENT -->
-  <main class="main-content">
+  <main class="container" style="padding:2rem 0;">
     <section class="section section-light">
-      <div class="container">
-        <h2>Order Now</h2>
-        <p>
-          Ready to get started? Choose your licensing plan, globe kit, or API
-          subscription below.  
-          <ul>
-            <li>Basic (free tier)</li>
-            <li>Education Pack</li>
-            <li>Enterprise API</li>
-            <li>Physical Globe Device</li>
-          </ul>
-        </p>
-        <div class="feature-image-wrapper">
-          <img
-            src="images/feature-weather.jpg"
-            alt="Order Now Preview"
-            class="section-image"
-          />
-        </div>
-        <p style="margin-top: 2rem; color: #444;">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac
-          suscipit sapien, at tristique lorem. Phasellus nec ligula sit amet
-          tellus viverra pharetra.
-        </p>
-      </div>
-    </section>
+      <h2 style="font-family:'Lora', serif; font-size:2rem; color:#003366; margin-bottom:1rem;">Coming Soon</h2>
+      <p style="color:#555; margin-bottom:2rem;">
+        We are excited for you to join us on this mission—our globes aren’t shipping just yet.
+        Enter your name below and we’ll keep you informed of our progress.
+        If you have a question, enter it in the message field below.
+      </p>
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
-      <div class="container text-center">
-        <p>© 2025 Curious Earth. All rights reserved.</p>
+      <div id="form-success" style="display:none; background:#d4edda; color:#155724; padding:1rem; border-radius:4px; margin-bottom:1rem;">
+        <i class="fas fa-check-circle"></i> Thanks! We’ll keep you in the loop.
       </div>
-    </footer>
+      <div id="form-error" style="display:none; background:#f8d7da; color:#721c24; padding:1rem; border-radius:4px; margin-bottom:1rem;">
+        <i class="fas fa-exclamation-circle"></i> Oops—something went wrong. Please try again.
+      </div>
+
+      <form id="contact-form" style="max-width:600px; margin:0 auto;">
+        <label for="name" style="font-weight:600;">Name</label><br>
+        <input type="text" id="name" name="name" required style="width:100%; padding:.5rem; margin-bottom:1rem;">
+
+        <label for="email" style="font-weight:600;">Enter your email</label><br>
+        <input type="email" id="email" name="email" required style="width:100%; padding:.5rem; margin-bottom:1rem;">
+
+        <label for="message" style="font-weight:600;">Message (optional)</label><br>
+        <textarea id="message" name="message" rows="4" style="width:100%; padding:.5rem; margin-bottom:1rem;"></textarea>
+
+        <button type="submit" class="btn-sm">Submit</button>
+      </form>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container"><p>© 2025 Curious Earth. All rights reserved.</p></div>
+  </footer>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      document.getElementById('form-success').style.display = 'none';
+      document.getElementById('form-error').style.display = 'none';
+      const resp = await fetch('https://formspree.io/f/mwpoggbg', {
+        method:'POST',
+        headers:{'Accept':'application/json'},
+        body:new FormData(this)
+      });
+      if(resp.ok){
+        document.getElementById('form-success').style.display='block';
+        this.reset();
+      } else {
+        document.getElementById('form-error').style.display='block';
+      }
+    });
+  </script>
 </body>
 </html>

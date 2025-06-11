@@ -10,587 +10,124 @@
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap"
     rel="stylesheet"
   />
-
-  <!-- Font Awesome (optional) -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    rel="stylesheet"
-  />
-
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Inline CSS for the “How It Works” step‐layout -->
-  <style>
-    /* ───────────────────────────────────────────────────────────────────────── */
-    /* HOW IT WORKS: Four columns with numbered circles, labels, images, and descriptions */
-    /* ───────────────────────────────────────────────────────────────────────── */
-    .how-steps {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    .step-item {
-      width: 23%;
-      min-width: 180px; /* prevents shrinking too small on narrow screens */
-      text-align: center;
-      margin-bottom: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .step-header {
-      /* force same height for circle + label block */
-      min-height: 4.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .step-circle {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 0.5rem;
-      border: 2px solid #003366;       /* dark-blue circle border */
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      color: #003366;
-      font-weight: 600;
-    }
-    .step-label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #003366;
-      margin: 0;
-      line-height: 1.2;
-    }
-    .step-img-wrapper {
-      width: 100%;
-      height: 200px;           /* fixed wrapper height */
-      overflow: hidden;
-      margin-top: 0.75rem;
-      border-radius: 8px;
-    }
-    .step-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;       /* crop-center any overflow */
-      object-position: top;    /* align image tops */
-      display: block;
-    }
-    .step-desc {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 0.75rem;
-      line-height: 1.3;
-    }
-    /* On small screens, stack steps vertically */
-    @media (max-width: 768px) {
-      .how-steps {
-        flex-direction: column;
-        align-items: center;
-      }
-      .step-item {
-        width: 80%;
-      }
-    }
-  </style>
+  <!-- Rotating text script -->
+  <script src="Java.js" defer></script>
 </head>
-
 <body>
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <!-- HEADER (white background, black nav text)                                -->
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <header
-    class="site-header"
-    style="
-      background: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-    "
-  >
-    <div
-      class="container header-inner"
-      style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0;"
-    >
-      <div class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
-        <a
-          href="index.html"
-          style="display: flex; align-items: center; text-decoration: none;"
-        >
-          <img
-            src="images/globe-transparent.png"
-            alt="Curious Earth Logo"
-            class="site-logo"
-            style="height: 48px; width: auto;"
-          />
-          <span
-            class="site-title"
-            style="
-              font-family: 'Lora', serif;
-              font-size: 1.5rem;
-              font-weight: 700;
-              color: #000;
-              margin-left: 0.5rem;
-            "
-          >
-            Curious Earth
-          </span>
-        </a>
-      </div>
 
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/globe-transparent.png" alt="Curious Earth Logo" class="site-logo"/>
+        <span class="site-title">Curious Earth</span>
+      </a>
       <nav class="site-nav">
-        <ul
-          style="
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            margin: 0;
-            padding: 0;
-          "
-        >
-          <li><a href="#globes" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Globes</a></li>
-          <li><a href="#how-it-works" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">How It Works</a></li>
-          <li><a href="#features" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Features</a></li>
-          <li><a href="content.html" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Content</a></li>
-          <li><a href="schools.html" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Schools</a></li>
-          <li><a href="businesses.html" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Businesses</a></li>
-          <li><a href="order-now.html" style="color: #000; text-decoration: none; font-weight: 600; font-size: 1rem;">Order Now</a></li>
+        <ul>
+          <li><a href="globes.html">Globes</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="content.html">Content</a></li>
+          <li><a href="order-now.html">Order Now</a></li>
         </ul>
       </nav>
     </div>
   </header>
+  <div style="height:80px;"></div>
 
-  <!-- Spacer for fixed header -->
-  <div style="height: 80px;"></div>
-
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <!-- HERO SECTION (height: 60vh)                                               -->
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <section
-    class="hero"
-    style="
-      position: relative;
-      background-image: url('images/hero-earth.jpg');
-      background-size: cover;
-      background-position: center;
-      height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    "
-  >
-    <div class="hero-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.4);"></div>
-    <div
-      class="container hero-content"
-      style="position: relative; text-align: center; color: #fff; padding: 0 1rem;"
-    >
-      <h1 style="font-family: 'Lora', serif; font-size: 3rem; margin-bottom: 1rem;">
+  <!-- HERO -->
+  <section class="hero" style="position:relative; background-image:url('images/hero-earth.jpg'); background-size:cover; background-position:center; height:60vh; display:flex; align-items:center; justify-content:center;">
+    <div class="hero-overlay" style="position:absolute; inset:0; background:rgba(0,0,0,0.4);"></div>
+    <div class="container hero-content" style="position:relative; text-align:center; color:#fff; padding:0 1rem;">
+      <h1 style="font-family:'Lora', serif; font-size:3rem; margin-bottom:1rem;">
         Your gateway to exploring our world
       </h1>
-      <p
-        class="rotating-text"
-        id="rotating-text"
-        style="font-size: 1.25rem; margin-bottom: 1.5rem; min-height: 1.5rem;"
-      >
+      <p class="rotating-text" id="rotating-text" style="font-size:1.25rem; margin-bottom:1.5rem; min-height:1.5rem;">
         See live weather worldwide
       </p>
-      <a
-        href="#features"
-        class="btn btn-primary"
-        style="
-          background: #ffc107;
-          color: #003366;
-          padding: 0.75rem 1.5rem;
-          border-radius: 4px;
-          font-weight: 600;
-          text-decoration: none;
-          transition: background 0.3s;
-        "
-      >
-        Explore Features
+      <a href="globes.html" class="btn btn-primary" style="background:#ffc107; color:#003366; padding:.75rem 1.5rem; border-radius:4px; font-weight:600; text-decoration:none;">
+        Explore Globes
       </a>
     </div>
   </section>
 
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <!-- GLOBES SECTION                                                            -->
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <section id="globes" class="section section-light" style="padding: 4rem 0; background: #fff;">
-    <div class="container" style="max-width: 1200px; margin: 0 auto;">
-      <h2
-        style="
-          font-family: 'Lora', serif;
-          font-size: 2rem;
-          color: #003366;
-          margin-bottom: 1rem;
-          text-align: center;
-        "
-      >
+  <!-- GLOBES -->
+  <section id="globes" class="section section-light">
+    <div class="container">
+      <h2 style="font-family:'Lora', serif; font-size:2rem; color:#003366; text-align:center; margin-bottom:2rem;">
         Globes
       </h2>
-      <p
-        style="
-          font-size: 1.1rem;
-          color: #555;
-          max-width: 800px;
-          margin: 0 auto 2rem;
-          text-align: center;
-        "
-      >
-        Choose the right globe for your needs—whether at home, in schools, or for business installations.
-      </p>
-
-      <div
-        class="globes-grid"
-        style="
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-          gap: 2rem;
-          align-items: start;
-        "
-      >
-        <!-- CONSUMER CARD -->
-        <div
-          class="globe-card"
-          style="
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            text-align: center;
-          "
-        >
-          <div
-            class="globe-image-wrapper"
-            style="
-              width: 100%;
-              padding-top: 56.25%; /* 16:9 aspect ratio */
-              position: relative;
-            "
-          >
-            <img
-              src="images/consumer_globe_photo.jpg"
-              alt="Consumer Globe"
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-              "
-            />
-          </div>
-          <div style="padding: 1rem;">
-            <h3
-              style="
-                font-family: 'Montserrat', sans-serif;
-                font-size: 1.25rem;
-                color: #333;
-                margin: 0;
-              "
-            >
-              Consumer
-            </h3>
-          </div>
+      <div class="globes-grid">
+        <!-- Home -->
+        <div class="globe-card">
+          <img src="images/consumer_globe_photo.jpg" alt="Home Globe"/>
+          <h3 style="font-size:1.25rem; margin:0 0 .5rem;">Home</h3>
+          <p style="color:#555; flex:1;">
+            Explore history, create custom content and see live weather on your personal globe.
+          </p>
+          <a href="globes.html" class="btn-sm">See More</a>
         </div>
-
-        <!-- SCHOOLS CARD -->
-        <div
-          class="globe-card"
-          style="
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            text-align: center;
-          "
-        >
-          <div
-            class="globe-image-wrapper"
-            style="
-              width: 100%;
-              padding-top: 56.25%;
-              position: relative;
-            "
-          >
-            <img
-              src="images/kids_gathered_around_globe.jpg"
-              alt="Schools Globe"
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-              "
-            />
-          </div>
-          <div style="padding: 1rem;">
-            <h3
-              style="
-                font-family: 'Montserrat', sans-serif;
-                font-size: 1.25rem;
-                color: #333;
-                margin: 0;
-              "
-            >
-              Schools
-            </h3>
-          </div>
+        <!-- School -->
+        <div class="globe-card">
+          <img src="images/kids_gathered_around_globe.jpg" alt="School Globe"/>
+          <h3 style="font-size:1.25rem; margin:0 0 .5rem;">School</h3>
+          <p style="color:#555; flex:1;">
+            Illustrate different geographical features, engage with environmental systems, animate history, see where different forms of government systems are in place.
+          </p>
+          <a href="globes.html" class="btn-sm">See More</a>
         </div>
-
-        <!-- BUSINESS CARD -->
-        <div
-          class="globe-card"
-          style="
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            text-align: center;
-          "
-        >
-          <div
-            class="globe-image-wrapper"
-            style="
-              width: 100%;
-              padding-top: 56.25%;
-              position: relative;
-            "
-          >
-            <img
-              src="images/lobby_globe.png"
-              alt="Business Globe"
-              style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-              "
-            />
-          </div>
-          <div style="padding: 1rem;">
-            <h3
-              style="
-                font-family: 'Montserrat', sans-serif;
-                font-size: 1.25rem;
-                color: #333;
-                margin: 0;
-              "
-            >
-              Business
-            </h3>
-          </div>
+        <!-- Business -->
+        <div class="globe-card">
+          <img src="images/lobby_globe.png" alt="Business Globe"/>
+          <h3 style="font-size:1.25rem; margin:0 0 .5rem;">Business</h3>
+          <p style="color:#555; flex:1;">
+            Visualize production facilities worldwide, illustrate supply chains and distribution, see sales by country or region.
+          </p>
+          <a href="globes.html" class="btn-sm">See More</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <!-- HOW IT WORKS SECTION                                                      -->
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <section id="how-it-works" class="section section-gray" style="padding: 4rem 0; background: #f9f9f9;">
-    <div class="container" style="max-width: 1200px; margin: 0 auto;">
-      <h2
-        style="
-          font-family: 'Lora', serif;
-          font-size: 2rem;
-          color: #003366;
-          margin-bottom: 2rem;
-          text-align: center;
-        "
-      >
-        How It Works
-      </h2>
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works">
+    <div class="container">
+      <h2>How It Works</h2>
       <div class="how-steps">
-        <!-- STEP 1: Buy Globe -->
         <div class="step-item">
-          <div class="step-header">
-            <div class="step-circle">1</div>
-            <p class="step-label">Step 1: Buy Globe</p>
-          </div>
-          <div class="step-img-wrapper">
-            <img
-              src="images/globe-step.png"
-              alt="Buy Globe"
-              class="step-image"
-            />
-          </div>
-          <p class="step-desc">Pick the globe that fits your needs – home, school, or business use.</p>
+          <div class="step-circle">1</div>
+          <div class="step-label">Step 1: Choose your Globe</div>
+          <img src="images/globe-step.png" alt="Choose Globe" class="step-image"/>
+          <div class="step-desc">Pick the globe that fits your needs—home, school, or business use.</div>
         </div>
-
-        <!-- STEP 2: Connect to WiFi -->
         <div class="step-item">
-          <div class="step-header">
-            <div class="step-circle">2</div>
-            <p class="step-label">Step 2: Connect to WiFi</p>
-          </div>
-          <div class="step-img-wrapper">
-            <img
-              src="images/wifi-step.png"
-              alt="Connect to WiFi"
-              class="step-image"
-            />
-          </div>
-          <p class="step-desc">Set your globe up on WiFi and control it via the cloud.</p>
+          <div class="step-circle">2</div>
+          <div class="step-label">Step 2: Connect to WiFi</div>
+          <img src="images/wifi-step.png" alt="Connect to WiFi" class="step-image"/>
+          <div class="step-desc">Set your globe up on WiFi and control it via the cloud.</div>
         </div>
-
-        <!-- STEP 3: Choose Your Free Content -->
         <div class="step-item">
-          <div class="step-header">
-            <div class="step-circle">3</div>
-            <p class="step-label">Step 3: Choose Your Free Content</p>
-          </div>
-          <div class="step-img-wrapper">
-            <img
-              src="images/feature-weather.jpg"
-              alt="Choose Free Content"
-              class="step-image"
-            />
-          </div>
-          <p class="step-desc">Pick from hundreds of free content options to explore our Earth.</p>
+          <div class="step-circle">3</div>
+          <div class="step-label">Step 3: Explore Your Free Content</div>
+          <img src="images/feature-weather.jpg" alt="Free Content" class="step-image"/>
+          <div class="step-desc">Pick from hundreds of free content options to explore our Earth.</div>
         </div>
-
-        <!-- STEP 4: Explore Subscriber Content -->
         <div class="step-item">
-          <div class="step-header">
-            <div class="step-circle">4</div>
-            <p class="step-label">Step 4: Explore Subscriber Content</p>
-          </div>
-          <div class="step-img-wrapper">
-            <img
-              src="images/feature-map.jpg"
-              alt="Explore Subscriber Content"
-              class="step-image"
-            />
-          </div>
-          <p class="step-desc">Select unique content to enjoy from our fantastic partners.</p>
+          <div class="step-circle">4</div>
+          <div class="step-label">Step 4: Choose Your Subscriber Content</div>
+          <img src="images/feature-map.jpg" alt="Subscriber Content" class="step-image"/>
+          <div class="step-desc">Select unique content to enjoy from our fantastic partners.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <!-- FEATURES SECTION                                                          -->
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <section id="features" class="section section-light" style="padding: 4rem 0; background: #fff;">
-    <div class="container text-center" style="max-width: 1200px; margin: 0 auto;">
-      <h2
-        style="
-          font-family: 'Lora', serif;
-          font-size: 2rem;
-          color: #003366;
-          margin-bottom: 1rem;
-        "
-      >
-        At a Glance
-      </h2>
-      <p
-        style="
-          font-size: 1.1rem;
-          color: #555;
-          max-width: 800px;
-          margin: 0 auto 2rem;
-        "
-      >
-        Discover at a glance what makes Curious Earth so powerful: live data, layered insights, and user contributions—all on one platform.
-      </p>
-      <div
-        class="feature-grid"
-        style="
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: 2rem;
-        "
-      >
-        <div class="feature-item" style="text-align: center;">
-          <img
-            src="images/feature-weather.jpg"
-            alt="Weather Layers"
-            class="section-image"
-            style="width: 100%; border-radius: 8px; margin-bottom: 1rem; object-fit: cover;"
-          />
-          <h3
-            style="
-              font-family: 'Montserrat', sans-serif;
-              font-size: 1.25rem;
-              color: #333;
-            "
-          >
-            Weather Layers
-          </h3>
-        </div>
-        <div class="feature-item" style="text-align: center;">
-          <img
-            src="images/feature-history.jpg"
-            alt="Historical Timelines"
-            class="section-image"
-            style="width: 100%; border-radius: 8px; margin-bottom: 1rem; object-fit: cover;"
-          />
-          <h3
-            style="
-              font-family: 'Montserrat', sans-serif;
-              font-size: 1.25rem;
-              color: #333;
-            "
-          >
-            Historical Timelines
-          </h3>
-        </div>
-        <div class="feature-item" style="text-align: center;">
-          <img
-            src="images/feature-tracking.jpg"
-            alt="Live Tracking"
-            class="section-image"
-            style="width: 100%; border-radius: 8px; margin-bottom: 1rem; object-fit: cover;"
-          />
-          <h3
-            style="
-              font-family: 'Montserrat', sans-serif;
-              font-size: 1.25rem;
-              color: #333;
-            "
-          >
-            Live Tracking
-          </h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <!-- FOOTER                                                                    -->
-  <!-- ───────────────────────────────────────────────────────────────────────── -->
-  <footer
-    class="site-footer"
-    style="
-      background: #fff;
-      padding: 2rem 0;
-      text-align: center;
-      border-top: 1px solid #e2e2e2;
-    "
-  >
-    <div class="container text-center" style="max-width: 800px; margin: 0 auto;">
-      <p style="color: #555;">© 2025 Curious Earth. All rights reserved.</p>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 Curious Earth. All rights reserved.</p>
     </div>
   </footer>
-
-  <!-- Rotating text script (unchanged) -->
-  <script src="Java.js"></script>
 </body>
 </html>

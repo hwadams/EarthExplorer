@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Contact – Curious Earth</title>
+  <title>Coming Soon – Curious Earth</title>
 
   <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap"
     rel="stylesheet"
   />
-  <!-- Font Awesome -->
+  <!-- Font Awesome (for icons) -->
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     rel="stylesheet"
@@ -20,99 +20,108 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="logo">
-        <img
-          src="images/globe-transparent.png"
-          alt="Curious Earth Logo"
-          class="site-logo"
-        />
-        <span class="site-title">Curious Earth</span>
-      </div>
-      <nav class="site-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="features.html">Features</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="contact.html" class="active">Contact</a></li>
-          <li><a href="borders.html">Borders Over Time</a></li>
-          <li><a href="explorer.html">Explorer</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+<!-- ───────────────────────────────────────────────────────────────────────── -->
+<!-- HEADER: same on every page                                              -->
+<!-- ───────────────────────────────────────────────────────────────────────── -->
+<header class="site-header" style="background:#fff; box-shadow:0 2px 4px rgba(0,0,0,0.1); position:fixed; top:0; width:100%; z-index:100;">
+  <div class="container header-inner" style="display:flex; align-items:center; justify-content:space-between; padding:0.75rem 0;">
+    <!-- logo + title -->
+    <a href="index.html" class="logo" style="display:flex; align-items:center; text-decoration:none;">
+      <img
+        src="images/globe-transparent.png"
+        alt="Curious Earth Logo"
+        class="site-logo"
+        style="height:48px; width:auto;"
+      />
+      <span class="site-title" style="font-family:'Lora', serif; font-size:1.5rem; font-weight:700; color:#000; margin-left:0.5rem;">
+        Curious Earth
+      </span>
+    </a>
 
-  <!-- MAIN -->
-  <main class="container" style="padding-top:4rem;">
+    <!-- navigation -->
+    <nav class="site-nav">
+      <ul style="list-style:none; display:flex; gap:2rem; margin:0; padding:0;">
+        <li><a href="index.html#globes"    style="color:#000; text-decoration:none; font-weight:600; font-size:1rem;">Globes</a></li>
+        <li><a href="index.html#how-it-works" style="color:#000; text-decoration:none; font-weight:600; font-size:1rem;">How It Works</a></li>
+        <li><a href="content.html"        style="color:#000; text-decoration:none; font-weight:600; font-size:1rem;">Content</a></li>
+        <li><a href="order-now.html"      style="color:#000; text-decoration:none; font-weight:600; font-size:1rem;">Order Now</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <!-- OUR HEADQUARTERS -->
+<!-- spacer so first section isn’t hidden under fixed header -->
+<div style="height:80px;"></div>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="container" style="padding-top:2rem;">
+
+    <!-- COMING SOON FORM -->
     <section class="section">
-      <h2 style="text-align:left;">Our Headquarters</h2>
-      <p style="text-align:left; font-size:1.1rem; margin-top:0.5rem;">
-        314 Lake Street<br/>
-        Evanston, IL 60201
+      <h2 style="text-align:left; font-family:'Lora', serif; font-size:2rem; color:#003366;">
+        Coming Soon
+      </h2>
+      <p style="text-align:left; font-size:1rem; color:#555; margin-top:0.5rem;">
+        We are excited for you to join us on this mission—our globes aren’t shipping just yet.
+        Enter your name below and we’ll keep you informed of our progress.
+        If you have a question, enter it in the message field below.
       </p>
-    </section>
 
-    <!-- SEND US A MESSAGE -->
-    <section class="section">
-      <h2 style="text-align:left;">Send Us a Message</h2>
-
-      <!-- Success & Error banners -->
+      <!-- success & error banners -->
       <div id="form-success"
            style="display:none;
-                  background:#d4edda;color:#155724;
-                  padding:1rem;border-radius:4px;
-                  margin-bottom:1rem;">
+                  background:#d4edda; color:#155724;
+                  padding:1rem; border-radius:4px;
+                  margin:1rem 0;">
         <i class="fas fa-check-circle"></i>
-        Thanks! Your message has been sent.
+        Thanks! We’ll keep you in the loop.
       </div>
       <div id="form-error"
            style="display:none;
-                  background:#f8d7da;color:#721c24;
-                  padding:1rem;border-radius:4px;
-                  margin-bottom:1rem;">
+                  background:#f8d7da; color:#721c24;
+                  padding:1rem; border-radius:4px;
+                  margin:1rem 0;">
         <i class="fas fa-exclamation-circle"></i>
         Oops—something went wrong. Please try again.
       </div>
 
-      <!-- AJAX formspree form -->
-      <form id="contact-form" style="max-width:600px;margin-top:1rem;">
-        <label for="name">Name</label><br/>
+      <!-- subscription form -->
+      <form id="contact-form" style="max-width:600px; margin-top:1rem;">
+        <label for="name" style="font-weight:600;">Name</label><br/>
         <input
           type="text"
           id="name"
           name="name"
           required
-          style="width:100%;padding:.5rem;margin-bottom:1rem;"
+          style="width:100%; padding:.5rem; margin-bottom:1rem;"
         />
 
-        <label for="email">Enter your email</label><br/>
+        <label for="email" style="font-weight:600;">Enter your email</label><br/>
         <input
           type="email"
           id="email"
           name="email"
           required
-          style="width:100%;padding:.5rem;margin-bottom:1rem;"
+          style="width:100%; padding:.5rem; margin-bottom:1rem;"
         />
 
-        <label for="message">Message</label><br/>
+        <label for="message" style="font-weight:600;">Message (optional)</label><br/>
         <textarea
           id="message"
           name="message"
-          rows="6"
-          required
-          style="width:100%;padding:.5rem;margin-bottom:1rem;"
+          rows="4"
+          style="width:100%; padding:.5rem; margin-bottom:1rem;"
         ></textarea>
 
         <button
           type="submit"
-          style="background:#ffc107;color:#003366;
-                 padding:.75rem 1.5rem;border:none;
-                 border-radius:4px;font-weight:600;
+          style="background:#ffc107;
+                 color:#003366;
+                 padding:.75rem 1.5rem;
+                 border:none;
+                 border-radius:4px;
+                 font-weight:600;
                  cursor:pointer;"
         >
           Submit
@@ -131,11 +140,10 @@
 
   <!-- AJAX + Formspree script -->
   <script>
-    document
-      .getElementById('contact-form')
+    document.getElementById('contact-form')
       .addEventListener('submit', async function(e) {
         e.preventDefault();
-        // hide banners
+        // hide previous banners
         document.getElementById('form-success').style.display = 'none';
         document.getElementById('form-error').style.display = 'none';
 
@@ -148,22 +156,17 @@
             headers: { 'Accept': 'application/json' },
             body: data
           });
-
           if (resp.ok) {
             document.getElementById('form-success').style.display = 'block';
             form.reset();
           } else {
-            const json = await resp.json();
-            console.error('Formspree error:', json);
-            document.getElementById('form-error').textContent =
-              (json && json.error) || 'Oops—something went wrong. Please try again.';
             document.getElementById('form-error').style.display = 'block';
           }
         } catch (err) {
-          console.error('Network error:', err);
           document.getElementById('form-error').style.display = 'block';
         }
       });
   </script>
+
 </body>
 </html>

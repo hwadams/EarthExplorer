@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Globes – Curious Earth</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ───────────────────────────────────────────────────────────────────────── */
+    /* 3-column grid for globes                                                         */
+    /* ───────────────────────────────────────────────────────────────────────── */
+    .globes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 4rem 0;
+    }
+    .globe-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .globe-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    .globe-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.25rem;
+      color: #333;
+      margin: 0 0 0.5rem;
+    }
+    .globe-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem;
+      width: 100%;
+    }
+    .globe-card ul li {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .globe-card a {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: auto;
+      padding: 0.5rem 0;
+      background: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .globe-card a:hover {
+      background: #0056b3;
+    }
+    @media (max-width: 768px) {
+      .globes-grid {
+        grid-template-columns: 1fr;
+      }
+      .globe-card {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" style="background:#fff;box-shadow:0 2px 4px rgba(0,0,0,0.1);position:fixed;top:0;width:100%;z-index:100;">
+    <div class="container header-inner" style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 0;">
+      <a href="index.html" class="logo" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="images/globe-transparent.png" alt="Curious Earth Logo" class="site-logo" style="height:48px;width:auto;">
+        <span class="site-title" style="font-family:'Lora',serif;font-size:1.5rem;font-weight:700;color:#000;margin-left:0.5rem;">
+          Curious Earth
+        </span>
+      </a>
+      <nav class="site-nav">
+        <ul style="list-style:none;display:flex;gap:2rem;margin:0;padding:0;">
+          <li><a href="globes.html"   style="color:#000;text-decoration:none;font-weight:600;">Globes</a></li>
+          <li><a href="index.html#how-it-works" style="color:#000;text-decoration:none;font-weight:600;">How It Works</a></li>
+          <li><a href="content.html"  style="color:#000;text-decoration:none;font-weight:600;">Content</a></li>
+          <li><a href="order-now.html"style="color:#000;text-decoration:none;font-weight:600;">Order Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div style="height:80px;"></div>
+
+  <main class="container">
+
+    <h1 style="font-family:'Lora',serif;font-size:2rem;color:#003366;text-align:center;margin-top:2rem;">
+      Globes
+    </h1>
+
+    <div class="globes-grid">
+
+      <!-- Home Globe -->
+      <div class="globe-card">
+        <img src="images/consumer_globe_photo.jpg" alt="Home Globe">
+        <h3>Home</h3>
+        <ul>
+          <li><strong>Sizes:</strong> 12”–18” (30cm–46cm)</li>
+          <li><strong>Pricing:</strong> $800–$1,100</li>
+        </ul>
+        <a href="content.html">Content</a>
+        <a href="order-now.html" style="margin-top:0.5rem;">Order Now</a>
+      </div>
+
+      <!-- School Globe -->
+      <div class="globe-card">
+        <img src="images/kids_gathered_around_globe.jpg" alt="School Globe">
+        <h3>School</h3>
+        <ul>
+          <li><strong>Sizes:</strong> 18”–30” (46cm–61cm)</li>
+          <li><strong>Pricing:</strong> $1,100–$2,000 <em>(subscription options available)</em></li>
+        </ul>
+        <a href="content.html">Content</a>
+        <a href="order-now.html" style="margin-top:0.5rem;">Order Now</a>
+      </div>
+
+      <!-- Business Globe -->
+      <div class="globe-card">
+        <img src="images/lobby_globe.png" alt="Business Globe">
+        <h3>Business</h3>
+        <ul>
+          <li><strong>Sizes:</strong> 18”–36” (46cm–91cm)</li>
+          <li><strong>Pricing:</strong> $1,100–$3,000</li>
+        </ul>
+        <a href="content.html">Content</a>
+        <a href="order-now.html" style="margin-top:0.5rem;">Order Now</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" style="background:#fff;padding:2rem 0;text-align:center;border-top:1px solid #e2e2e2;margin-top:4rem;">
+    <div class="container">
+      <p style="color:#555;">© 2025 Curious Earth. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
