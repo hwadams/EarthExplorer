@@ -1,121 +1,30 @@
-/* 1. Reset & Base */
-* { margin:0; padding:0; box-sizing:border-box }
-body { font-family:'Montserrat',sans-serif; line-height:1.6; color:#333; background:#fff }
-.container { width:90%; max-width:1200px; margin:0 auto }
-
-/* 2. HEADER */
-.site-header {
-  background:#fff;
-  box-shadow:0 2px 4px rgba(0,0,0,0.1);
-  position:fixed; top:0; width:100%; z-index:100;
-}
-.header-inner { display:flex; align-items:center; justify-content:space-between; padding:0.75rem 0; }
-.logo { display:flex; align-items:center; text-decoration:none; }
-.site-logo { height:48px; width:auto; }
-.site-title { font-family:'Lora',serif; font-size:1.5rem; font-weight:700; color:#000; margin-left:0.5rem; }
-.site-nav ul { list-style:none; display:flex; gap:2rem; }
-.site-nav a { color:#000; text-decoration:none; font-weight:600; font-size:1rem; }
-
-/* Button */
-.btn-sm {
-  display:inline-block;
-  padding:0.5rem 1rem;
-  background:#007bff;
-  color:#fff;
-  border-radius:4px;
-  text-decoration:none;
-  font-weight:600;
-  transition:opacity .2s;
-}
-.btn-sm:hover { opacity:.9; }
-
-/* Sections */
-.section { padding:4rem 0; }
-.section-light { background:#fff; }
-.section-gray { background:#f9f9f9; }
-
-/* GLOBES GRID */
+/* force 3 columns on .globes-grid at tablet+/desktop */
 .globes-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:2rem;
-}
-.globe-card {
-  background:#fff;
-  border-radius:8px;
-  box-shadow:0 4px 6px rgba(0,0,0,0.1);
-  padding:1rem;
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-}
-.globe-card img {
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:4px;
-  margin-bottom:1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 2rem;
 }
 
-/* HOW IT WORKS */
-#how-it-works { background:#f9f9f9; }
-#how-it-works .container { max-width:1200px; margin:0 auto; text-align:center; }
-#how-it-works h2 {
-  font-family:'Lora', serif;
-  font-size:2rem;
-  color:#003366;
-  margin-bottom:2rem;
-}
+/* force 4 columns on how-steps at tablet+/desktop */
 .how-steps {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:2rem;
-}
-.step-item {
-  background:#fff;
-  border-radius:8px;
-  box-shadow:0 4px 6px rgba(0,0,0,0.1);
-  padding:1rem;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-.step-circle {
-  width:40px; height:40px;
-  margin-bottom:.5rem;
-  border:2px solid #003366;
-  border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.25rem; color:#003366; font-weight:600;
-}
-.step-label {
-  font-size:1rem; font-weight:600; color:#333;
-  margin-bottom:.75rem;
-}
-.step-image {
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  border:1px solid #e2e2e2;
-  border-radius:4px;
-  background:#fff;
-  margin-bottom:.75rem;
-}
-.step-desc {
-  color:#555;
-  font-size:.95rem;
-  line-height:1.4;
-  flex:1;
-}
-@media (max-width:768px) {
-  .how-steps { grid-template-columns:1fr; }
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 2rem;
 }
 
-/* FOOTER */
-.site-footer {
-  background:#fff;
-  padding:2rem 0;
-  text-align:center;
-  border-top:1px solid #e2e2e2;
+/* ensure cards don’t stretch too tall */
+.globe-card,
+.step-item {
+  max-width: 360px;
+  margin: 0 auto;
 }
-.site-footer p { color:#555; }
+
+/* tighten up your breakpoints so they only stack below 768px */
+@media (max-width: 767px) {
+  .globes-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .how-steps {
+    grid-template-columns: 1fr !important;
+  }
+}
