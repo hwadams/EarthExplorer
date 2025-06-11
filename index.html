@@ -5,15 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Curious Earth</title>
 
-  <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap"
     rel="stylesheet"
   />
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css" />
-  <!-- Rotating text script -->
-  <script src="Java.js" defer></script>
 </head>
 <body>
 
@@ -21,12 +17,12 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo">
-        <img src="images/globe-transparent.png" alt="Curious Earth Logo" class="site-logo"/>
+        <img src="images/globe-transparent.png" alt="Curious Earth Logo" class="site-logo" />
         <span class="site-title">Curious Earth</span>
       </a>
       <nav class="site-nav">
         <ul>
-          <li><a href="globes.html">Globes</a></li>
+          <li><a href="#globes">Globes</a></li>
           <li><a href="#how-it-works">How It Works</a></li>
           <li><a href="content.html">Content</a></li>
           <li><a href="order-now.html">Order Now</a></li>
@@ -34,89 +30,72 @@
       </nav>
     </div>
   </header>
-  <div style="height:80px;"></div>
+  <div class="header-spacer"></div>
 
   <!-- HERO -->
-  <section class="hero" style="position:relative; background-image:url('images/hero-earth.jpg'); background-size:cover; background-position:center; height:60vh; display:flex; align-items:center; justify-content:center;">
-    <div class="hero-overlay" style="position:absolute; inset:0; background:rgba(0,0,0,0.4);"></div>
-    <div class="container hero-content" style="position:relative; text-align:center; color:#fff; padding:0 1rem;">
-      <h1 style="font-family:'Lora', serif; font-size:3rem; margin-bottom:1rem;">
-        Your gateway to exploring our world
-      </h1>
-      <p class="rotating-text" id="rotating-text" style="font-size:1.25rem; margin-bottom:1.5rem; min-height:1.5rem;">
-        See live weather worldwide
-      </p>
-      <a href="globes.html" class="btn btn-primary" style="background:#ffc107; color:#003366; padding:.75rem 1.5rem; border-radius:4px; font-weight:600; text-decoration:none;">
-        Explore Globes
-      </a>
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1>Your gateway to exploring our world</h1>
+      <p class="rotating-text" id="rotating-text">See live weather worldwide</p>
+      <a href="#globes" class="btn-primary">Explore Globes</a>
     </div>
   </section>
 
-  <!-- GLOBES -->
+  <!-- GLOBES SECTION -->
   <section id="globes" class="section section-light">
     <div class="container">
-      <h2 style="font-family:'Lora', serif; font-size:2rem; color:#003366; text-align:center; margin-bottom:2rem;">
-        Globes
-      </h2>
+      <h2>Globes</h2>
       <div class="globes-grid">
-        <!-- Home -->
         <div class="globe-card">
-          <img src="images/consumer_globe_photo.jpg" alt="Home Globe"/>
-          <h3 style="font-size:1.25rem; margin:0 0 .5rem;">Home</h3>
-          <p style="color:#555; flex:1;">
-            Explore history, create custom content and see live weather on your personal globe.
-          </p>
+          <img src="images/consumer_globe_photo.jpg" alt="Home Globe" />
+          <h3>Home</h3>
+          <p>Explore history, create custom content and see live weather on your personal globe.</p>
           <a href="globes.html" class="btn-sm">See More</a>
         </div>
-        <!-- School -->
         <div class="globe-card">
-          <img src="images/kids_gathered_around_globe.jpg" alt="School Globe"/>
-          <h3 style="font-size:1.25rem; margin:0 0 .5rem;">School</h3>
-          <p style="color:#555; flex:1;">
-            Illustrate different geographical features, engage with environmental systems, animate history, see where different forms of government systems are in place.
-          </p>
+          <img src="images/kids_gathered_around_globe.jpg" alt="School Globe" />
+          <h3>School</h3>
+          <p>Illustrate different geographical features, engage with environmental systems, animate history, see where different forms of government systems are in place.</p>
           <a href="globes.html" class="btn-sm">See More</a>
         </div>
-        <!-- Business -->
         <div class="globe-card">
-          <img src="images/lobby_globe.png" alt="Business Globe"/>
-          <h3 style="font-size:1.25rem; margin:0 0 .5rem;">Business</h3>
-          <p style="color:#555; flex:1;">
-            Visualize production facilities worldwide, illustrate supply chains and distribution, see sales by country or region.
-          </p>
+          <img src="images/lobby_globe.png" alt="Business Globe" />
+          <h3>Business</h3>
+          <p>Visualize production facilities worldwide, illustrate supply chains and distribution, see sales by country or region.</p>
           <a href="globes.html" class="btn-sm">See More</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section id="how-it-works">
+  <!-- HOW IT WORKS SECTION -->
+  <section id="how-it-works" class="section section-gray">
     <div class="container">
       <h2>How It Works</h2>
       <div class="how-steps">
         <div class="step-item">
           <div class="step-circle">1</div>
           <div class="step-label">Step 1: Choose your Globe</div>
-          <img src="images/globe-step.png" alt="Choose Globe" class="step-image"/>
+          <img src="images/globe-step.png" alt="Choose Globe" class="step-image" />
           <div class="step-desc">Pick the globe that fits your needs—home, school, or business use.</div>
         </div>
         <div class="step-item">
           <div class="step-circle">2</div>
           <div class="step-label">Step 2: Connect to WiFi</div>
-          <img src="images/wifi-step.png" alt="Connect to WiFi" class="step-image"/>
+          <img src="images/wifi-step.png" alt="Connect to WiFi" class="step-image" />
           <div class="step-desc">Set your globe up on WiFi and control it via the cloud.</div>
         </div>
         <div class="step-item">
           <div class="step-circle">3</div>
           <div class="step-label">Step 3: Explore Your Free Content</div>
-          <img src="images/feature-weather.jpg" alt="Free Content" class="step-image"/>
+          <img src="images/feature-weather.jpg" alt="Free Content" class="step-image" />
           <div class="step-desc">Pick from hundreds of free content options to explore our Earth.</div>
         </div>
         <div class="step-item">
           <div class="step-circle">4</div>
           <div class="step-label">Step 4: Choose Your Subscriber Content</div>
-          <img src="images/feature-map.jpg" alt="Subscriber Content" class="step-image"/>
+          <img src="images/feature-map.jpg" alt="Subscriber Content" class="step-image" />
           <div class="step-desc">Select unique content to enjoy from our fantastic partners.</div>
         </div>
       </div>
@@ -129,5 +108,7 @@
       <p>© 2025 Curious Earth. All rights reserved.</p>
     </div>
   </footer>
+
+  <script src="Java.js"></script>
 </body>
 </html>

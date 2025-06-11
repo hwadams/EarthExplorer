@@ -1,345 +1,236 @@
-/* force 3 columns on .globes-grid at tablet+/desktop */
-.globes-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 2rem;
-}
+/* ───────────────────────────────────────────────────────────────────────── */
+/* RESET & BASE                                                             */
+/* ───────────────────────────────────────────────────────────────────────── */
+* { margin:0; padding:0; box-sizing:border-box }
+body { font-family:'Montserrat',sans-serif; line-height:1.6; color:#333; background:#fff }
+.container { width:90%; max-width:1200px; margin:0 auto }
 
-/* force 4 columns on how-steps at tablet+/desktop */
-.how-steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 2rem;
-}
+/* LINKS */
+a { text-decoration:none }
+a:hover { opacity:.85 }
 
-/* ensure cards don’t stretch too tall */
-.globe-card,
-.step-item {
-  max-width: 360px;
-  margin: 0 auto;
-}
-
-/* tighten up your breakpoints so they only stack below 768px */
-@media (max-width: 767px) {
-  .globes-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .how-steps {
-    grid-template-columns: 1fr !important;
-  }
-}
-/*───────────────────────────────────────────────────────────────────────────*/
-/* 1. RESET & BASE                                                          */
-/*───────────────────────────────────────────────────────────────────────────*/
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 16px;
-}
-
-body {
-  font-family: 'Montserrat', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background: #fff;
-}
-
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.text-center {
-  text-align: center;
-}
-
-/*───────────────────────────────────────────────────────────────────────────*/
-/* 2. HEADER                                                                */
-/*───────────────────────────────────────────────────────────────────────────*/
+/* ───────────────────────────────────────────────────────────────────────── */
+/* HEADER                                                                   */
+/* ───────────────────────────────────────────────────────────────────────── */
 .site-header {
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
+  position:fixed; top:0; left:0; right:0;
+  background:#fff;
+  box-shadow:0 2px 4px rgba(0,0,0,0.1);
+  z-index:100;
 }
 .header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:1rem 0;
 }
-.logo {
-  display: flex;
-  align-items: center;
-}
-.site-logo {
-  height: 48px;
-  width: auto;
-}
+.site-logo { height:48px; }
 .site-title {
-  font-family: 'Lora', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #000;
-  margin-left: 0.5rem;
+  font-family:'Lora',serif;
+  font-size:1.5rem;
+  font-weight:700;
+  margin-left:.5rem;
+  color:#000;
 }
 .site-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
+  list-style:none;
+  display:flex;
+  gap:2rem;
 }
 .site-nav a {
-  color: #000;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: opacity 0.2s;
-}
-.site-nav a:hover {
-  opacity: 0.7;
+  color:#000;
+  font-weight:600;
 }
 
-/* spacer for fixed header so content isn’t hidden */
-body > .container:first-of-type {
-  padding-top: 80px;
-}
+/* spacer so content doesn’t hide under fixed header */
+.header-spacer { height:80px; }
 
-/*───────────────────────────────────────────────────────────────────────────*/
-/* 3. HERO                                                                  */
-/*───────────────────────────────────────────────────────────────────────────*/
+/* ───────────────────────────────────────────────────────────────────────── */
+/* HERO                                                                     */
+/* ───────────────────────────────────────────────────────────────────────── */
 .hero {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position:relative;
+  background:url('images/hero-earth.jpg') center/cover no-repeat;
+  height:60vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.4);
 }
 .hero-content {
-  position: relative;
-  text-align: center;
-  color: #fff;
-  padding: 0 1rem;
+  position:relative;
+  text-align:center;
+  color:#fff;
+  padding:0 1rem;
 }
 .hero-content h1 {
-  font-family: 'Lora', serif;
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-family:'Lora',serif;
+  font-size:3rem;
+  margin-bottom:1rem;
 }
 .rotating-text {
-  font-size: 1.25rem;
-  margin-bottom: 1.5rem;
-  min-height: 1.5rem;
-}
-
-/*───────────────────────────────────────────────────────────────────────────*/
-/* 4. BUTTONS                                                               */
-/*───────────────────────────────────────────────────────────────────────────*/
-.btn {
-  display: inline-block;
-  border-radius: 4px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  font-size:1.25rem;
+  margin-bottom:1.5rem;
 }
 .btn-primary {
-  background: #ffc107;
-  color: #003366;
-  padding: 0.75rem 1.5rem;
-}
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-}
-
-/* small secondary button */
-.btn-sm {
-  display: inline-block;
-  background: #007bff;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 600;
+  display:inline-block;
+  background:#ffc107;
+  color:#003366;
+  padding:.75rem 1.5rem;
+  border-radius:4px;
+  font-weight:600;
 }
 
-/*───────────────────────────────────────────────────────────────────────────*/
-/* 5. SECTIONS                                                              */
-/*───────────────────────────────────────────────────────────────────────────*/
+/* ───────────────────────────────────────────────────────────────────────── */
+/* SECTION TITLES                                                           */
+/* ───────────────────────────────────────────────────────────────────────── */
 .section {
-  padding: 4rem 0;
+  padding:4rem 0;
 }
-.section-light {
-  background: #fff;
-}
-.section-gray {
-  background: #f9f9f9;
-}
+.section-light { background:#fff }
+.section-gray  { background:#f9f9f9 }
 .section h2 {
-  font-family: 'Lora', serif;
-  font-size: 2rem;
-  color: #003366;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-.section p {
-  font-size: 1.1rem;
-  color: #555;
-  max-width: 800px;
-  margin: 0 auto 2rem;
-  text-align: center;
+  font-family:'Lora',serif;
+  font-size:2rem;
+  color:#003366;
+  text-align:center;
+  margin-bottom:2rem;
 }
 
-/*───────────────────────────────────────────────────────────────────────────*/
-/* 6. FEATURE GRID                                                          */
-/*───────────────────────────────────────────────────────────────────────────*/
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
-}
-.feature-item {
-  text-align: center;
-}
-.section-image {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  object-fit: cover;
-}
-
-/*───────────────────────────────────────────────────────────────────────────*/
-/* 7. GLOBES GRID                                                          */
-/*───────────────────────────────────────────────────────────────────────────*/
-/* force 3 columns on desktop, stack below 768px */
+/* ───────────────────────────────────────────────────────────────────────── */
+/* GLOBES GRID                                                              */
+/* ───────────────────────────────────────────────────────────────────────── */
 .globes-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2rem;
+}
+@media(max-width:800px){
+  .globes-grid { grid-template-columns:1fr }
 }
 .globe-card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 360px;
-  margin: 0 auto;
+  background:#fff;
+  border-radius:8px;
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  padding:1rem;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:.75rem;
 }
 .globe-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+  width:100%; height:180px;
+  object-fit:cover; border-radius:4px;
 }
 .globe-card h3 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.25rem;
-  color: #333;
-  margin-bottom: 0.5rem;
+  font-family:'Montserrat',sans-serif;
+  font-size:1.25rem;
+  margin:0;
 }
 .globe-card p {
-  color: #555;
-  font-size: 1rem;
-  margin-bottom: 1rem;
+  color:#555;
+  flex:1;
 }
-@media (max-width: 767px) {
-  .globes-grid {
-    grid-template-columns: 1fr;
-  }
+.btn-sm {
+  display:inline-block;
+  background:#007bff;
+  color:#fff;
+  padding:.5rem 1rem;
+  border-radius:4px;
+  font-weight:600;
 }
 
-/*───────────────────────────────────────────────────────────────────────────*/
-/* 8. HOW IT WORKS                                                          */
-/*───────────────────────────────────────────────────────────────────────────*/
-/* force 4 columns on desktop, stack below 768px */
+/* ───────────────────────────────────────────────────────────────────────── */
+/* HOW IT WORKS GRID                                                        */
+/* ───────────────────────────────────────────────────────────────────────── */
 .how-steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2rem;
+}
+@media(max-width:800px){
+  .how-steps { grid-template-columns:1fr }
 }
 .step-item {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 360px;
-  margin: 0 auto;
+  background:#fff;
+  border-radius:8px;
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  padding:1rem;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
 }
 .step-circle {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 0.5rem;
-  border: 2px solid #003366;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  color: #003366;
-  font-weight: 600;
+  width:40px; height:40px;
+  margin:0 auto .5rem;
+  border:2px solid #003366;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.25rem;
+  color:#003366;
+  font-weight:600;
 }
 .step-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 0.75rem;
-  text-align: center;
+  font-weight:600;
+  margin-bottom:.75rem;
 }
 .step-image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border: 1px solid #e2e2e2;
-  border-radius: 4px;
-  background: #fff;
-  margin-bottom: 0.75rem;
+  width:100%; height:180px;
+  object-fit:cover;
+  border:1px solid #e2e2e2;
+  border-radius:4px;
+  margin-bottom:.75rem;
 }
 .step-desc {
-  color: #555;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  text-align: center;
-  flex: 1;
-}
-@media (max-width: 767px) {
-  .how-steps {
-    grid-template-columns: 1fr;
-  }
+  color:#555;
+  flex:1;
 }
 
-/*───────────────────────────────────────────────────────────────────────────*/
-/* 9. FORM & FOOTER                                                         */
-/*───────────────────────────────────────────────────────────────────────────*/
-.site-footer {
-  background: #fff;
-  padding: 2rem 0;
-  text-align: center;
-  border-top: 1px solid #e2e2e2;
+/* ───────────────────────────────────────────────────────────────────────── */
+/* CONTENT GRID                                                             */
+/* ───────────────────────────────────────────────────────────────────────── */
+.content-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2rem;
 }
-.site-footer p {
-  color: #555;
-  margin: 0;
+@media(max-width:800px){
+  .content-grid { grid-template-columns:1fr 1fr }
+}
+.content-card {
+  background:#fff;
+  border-radius:8px;
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+  overflow:hidden;
+  text-align:center;
+}
+.content-card img {
+  width:100%; height:140px;
+  object-fit:cover;
+}
+.content-card h3 {
+  padding:.5rem 0;
+  font-family:'Montserrat',sans-serif;
+  font-size:1.1rem;
+  color:#333;
+}
+.content-card p {
+  font-size:.95rem;
+  color:#555;
+  padding:0 1rem 1rem;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* FOOTER                                                                   */
+/* ───────────────────────────────────────────────────────────────────────── */
+.site-footer {
+  background:#fff; text-align:center;
+  padding:2rem 0; border-top:1px solid #e2e2e2;
+  color:#555;
 }

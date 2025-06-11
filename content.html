@@ -2,129 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Content – Curious Earth</title>
 
-  <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap"
     rel="stylesheet"
   />
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- HEADER (same everywhere) -->
+  <!-- same header -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="logo">
-        <img src="images/globe-transparent.png" alt="Curious Earth Logo" class="site-logo"/>
+        <img src="images/globe-transparent.png" alt="Curious Earth Logo" class="site-logo" />
         <span class="site-title">Curious Earth</span>
       </a>
       <nav class="site-nav">
         <ul>
-          <li><a href="globes.html">Globes</a></li>
+          <li><a href="index.html#globes">Globes</a></li>
           <li><a href="index.html#how-it-works">How It Works</a></li>
-          <li><a href="content.html" class="active">Content</a></li>
+          <li><a href="content.html">Content</a></li>
           <li><a href="order-now.html">Order Now</a></li>
         </ul>
       </nav>
     </div>
   </header>
-  <div style="height:80px;"></div>
+  <div class="header-spacer"></div>
 
-  <main class="container" style="padding:4rem 0;">
-
-    <!-- PAGE TITLE & INTRO -->
-    <h1 style="font-family:'Lora', serif; font-size:2.5rem; color:#003366; text-align:center; margin-bottom:1rem;">
-      Content
-    </h1>
-    <p style="max-width:800px; margin:0 auto 2rem; color:#555; text-align:center; font-size:1.1rem;">
-      The earth is our home. It is beautiful, complex and it has sustained us since pre-history.
-      Scroll through the entirety of our history and see the whole globe changing at once.
-      Explore all of earth’s mysteries in gorgeous high-resolution clarity.
-    </p>
-
-    <!-- HERO VIDEO AT 50% HEIGHT -->
-    <div style="text-align:center; margin-bottom:3rem;">
-      <iframe
-        width="50%"
-        height="300"
-        src="https://www.youtube.com/embed/ErOMbspikNg?rel=0"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-    </div>
-
-    <!-- FREE CONTENT GRID -->
-    <section class="section section-light">
-      <div class="container">
-        <h2 style="font-family:'Lora', serif; font-size:2rem; color:#003366; text-align:center; margin-bottom:2rem;">
-          Free content out of the box
-        </h2>
-        <div class="globes-grid"
-             style="
-               display: grid;
-               grid-template-columns: repeat(4, 1fr);
-               gap: 2rem;
-             ">
-          <!-- Live Weather -->
-          <div class="globe-card">
-            <img
-              src="images/live-weather.jpg"
-              alt="Live Weather"
-              style="width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:4px; margin-bottom:1rem;"
-            />
-            <h3 style="font-family:'Montserrat',sans-serif; font-size:1.25rem; color:#333; margin:0;">
-              Live Weather
-            </h3>
-          </div>
-
-          <!-- Science on a Sphere -->
-          <div class="globe-card">
-            <img
-              src="images/kids-sos.jpg"
-              alt="Science on a Sphere"
-              style="width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:4px; margin-bottom:1rem;"
-            />
-            <h3 style="font-family:'Montserrat',sans-serif; font-size:1.25rem; color:#333; margin:0;">
-              Science on a Sphere
-            </h3>
-          </div>
-
-          <!-- Personal Content -->
-          <div class="globe-card">
-            <img
-              src="images/custom-content.jpg"
-              alt="Personal Content"
-              style="width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:4px; margin-bottom:1rem;"
-            />
-            <h3 style="font-family:'Montserrat',sans-serif; font-size:1.25rem; color:#333; margin:0;">
-              Personal Content
-            </h3>
-          </div>
-
-          <!-- Google Earth -->
-          <div class="globe-card">
-            <img
-              src="images/google-earth.jpeg"
-              alt="Google Earth"
-              style="width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:4px; margin-bottom:1rem;"
-            />
-            <h3 style="font-family:'Montserrat',sans-serif; font-size:1.25rem; color:#333; margin:0;">
-              Google Earth
-            </h3>
-          </div>
-        </div>
-
-        <p style="max-width:800px; margin:2rem auto 0; color:#555; text-align:center; font-size:1.1rem;">
-          ...and hundreds more free content modules to download onto your sphere such as meteorological events (earthquakes, lightning strikes, etc.), geography quizzes, history and much more.
-        </p>
+  <!-- HERO AS 50% HEIGHT VIDEO -->
+  <section class="section section-light" style="padding:2rem 0;">
+    <div class="container text-center">
+      <h2>Content</h2>
+      <p style="max-width:800px; margin:1rem auto; color:#555; line-height:1.5;">
+        The earth is our home. It is beautiful, complex and it has sustained us since pre-history.
+        Scroll through the entirety of our history and see the whole globe changing at once.
+        Explore all of earth’s mysteries in gorgeous high-resolution clarity.
+      </p>
+      <div style="position:relative; width:100%; max-width:800px; margin:2rem auto; padding-top:28.125%; /* 16:9 scaled 50% of hero */">
+        <iframe 
+          src="https://www.youtube.com/embed/ErOMbspikNg" 
+          title="4K 3D Earth Globe Spinning" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen
+          style="position:absolute; top:0; left:0; width:100%; height:100%;">
+        </iframe>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <!-- FREE CONTENT GRID -->
+  <section class="section section-white">
+    <div class="container">
+      <h2 style="color:#003366; text-align:center; margin-bottom:2rem;">Free content out of the box</h2>
+      <div class="content-grid">
+        <div class="content-card">
+          <img src="images/live-weather.jpg" alt="Live Weather" />
+          <h3>Live Weather</h3>
+        </div>
+        <div class="content-card">
+          <img src="images/kids-sos.jpg" alt="Science on a Sphere" />
+          <h3>Science on a Sphere</h3>
+        </div>
+        <div class="content-card">
+          <img src="images/custom-content.jpg" alt="Personal Content" />
+          <h3>Personal Content</h3>
+        </div>
+        <div class="content-card">
+          <img src="images/google-earth.jpeg" alt="Google Earth" />
+          <h3>Google Earth</h3>
+        </div>
+      </div>
+      <p style="text-align:center; max-width:700px; margin:2rem auto; color:#555;">
+        ...and hundreds more free content modules to download onto your sphere such as meteorological events (earthquakes, lightning strikes, etc.), geography quizzes, history and much more.
+      </p>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer class="site-footer">
@@ -132,5 +88,6 @@
       <p>© 2025 Curious Earth. All rights reserved.</p>
     </div>
   </footer>
+
 </body>
 </html>
