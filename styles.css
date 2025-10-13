@@ -67,7 +67,7 @@ a:hover { opacity:.85 }
 /* ───────────────────────────────────────────────────────────────────────── */
 .hero {
   position:relative;
-  background:url('images/hero-earth.jpg') center/cover no-repeat;
+  background:url('hero-earth.jpg') center/cover no-repeat;
   height:60vh;
   display:flex;
   align-items:center;
