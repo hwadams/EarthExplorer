@@ -1,22 +1,28 @@
-// Java.js
-const messages = [
-  'See live weather worldwide',
-  'Track flights in real time',
-  'Reveal historical borders',
-  'Share your own travel stories'
-];
+// Accessible hamburger toggler
+const menuBtn = document.querySelector('.menu-toggle');
+const nav = document.getElementById('primary-nav');
 
-let index = 0;
-const rotatingElement = document.getElementById('rotating-text');
+if (menuBtn && nav) {
+  menuBtn.addEventListener('click', () => {
+    const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', String(!expanded));
+    document.body.classList.toggle('nav-open', !expanded);
+  });
 
-function rotate() {
-  rotatingElement.textContent = messages[index];
-  rotatingElement.classList.remove('fade-in');
-  // Trigger reflow to restart animation
-  void rotatingElement.offsetWidth;
-  rotatingElement.classList.add('fade-in');
-  index = (index + 1) % messages.length;
+  // Close menu after clicking a link
+  nav.addEventListener('click', e => {
+    if (e.target.closest('a')) {
+      menuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('nav-open');
+    }
+  });
+
+  // ESC closes menu
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      menuBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('nav-open');
+      menuBtn.focus();
+    }
+  });
 }
-
-setInterval(rotate, 3000);
-window.addEventListener('DOMContentLoaded', rotate);

@@ -38,10 +38,26 @@ a:hover { opacity:.85 }
   gap:2rem;
 }
 .site-nav a {
-  font-size:1.5rem !important;
   color:#000;
   font-weight:1000;
+  font-size:1.4rem;        /* was 2rem; reduced by 30% */
 }
+
+/* Hamburger button (hidden on desktop) */
+.menu-toggle{
+  display:none;
+  appearance:none;
+  background:transparent;
+  border:0;
+  padding:.5rem;
+  margin-left:1rem;
+  cursor:pointer;
+}
+.menu-toggle svg{ width:32px; height:32px; stroke:#000; }
+.bar{ transition:transform .2s ease, opacity .2s ease; }
+.menu-toggle[aria-expanded="true"] .bar2{ opacity:0; }
+.menu-toggle[aria-expanded="true"] .bar1{ transform:translateY(6px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .bar3{ transform:translateY(-6px) rotate(-45deg); }
 
 /* spacer so content doesn’t hide under fixed header */
 .header-spacer { height:80px; }
@@ -234,4 +250,18 @@ a:hover { opacity:.85 }
   background:#fff; text-align:center;
   padding:2rem 0; border-top:1px solid #e2e2e2;
   color:#555;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* MOBILE NAV (Hamburger)                                                   */
+/* ───────────────────────────────────────────────────────────────────────── */
+@media (max-width: 900px){
+  .menu-toggle{ display:inline-flex; }
+  .site-nav{
+    position:fixed; left:0; right:0; top:80px;
+    background:#fff; border-top:1px solid #e2e2e2;
+    display:none; padding:1rem 1.25rem;
+  }
+  .site-nav ul{ flex-direction:column; gap:1rem; }
+  body.nav-open .site-nav{ display:block; }
 }

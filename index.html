@@ -5,22 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Curious Earth</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
 
   <!-- HEADER -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="logo">
+      <a href="index.html" class="logo" aria-label="Curious Earth home">
         <img src="images/logo.png" alt="Curious Earth Logo" class="site-logo" />
-      
       </a>
-      <nav class="site-nav">
+
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-controls="primary-nav" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path class="bar bar1" d="M3 6h18" stroke-width="2" stroke-linecap="round" />
+          <path class="bar bar2" d="M3 12h18" stroke-width="2" stroke-linecap="round" />
+          <path class="bar bar3" d="M3 18h18" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <nav class="site-nav" id="primary-nav" aria-label="Main">
         <ul>
           <li><a href="#globes">Globes</a></li>
           <li><a href="#how-it-works">How It Works</a></li>
@@ -51,19 +56,24 @@
           <img src="images/consumer_globe_photo.jpg" alt="Home Globe" />
           <h3>Home</h3>
           <p>Explore history, create custom content and see live weather on your personal globe.</p>
-          <a href="globes.html" class="btn-sm">See More</a>
+          <a href="content.html" class="btn-sm">Content</a>
+          <a href="order-now.html" class="btn-sm" style="margin-top:.5rem;">Order Now</a>
         </div>
+
         <div class="globe-card">
           <img src="images/kids_gathered_around_globe.jpg" alt="School Globe" />
           <h3>School</h3>
-          <p>Illustrate different geographical features, engage with environmental systems, animate history, see where different forms of government systems are in place.</p>
-          <a href="globes.html" class="btn-sm">See More</a>
+          <p>Illustrate different geographical features, engage with environmental systems, animate history, and more.</p>
+          <a href="content.html" class="btn-sm">Content</a>
+          <a href="order-now.html" class="btn-sm" style="margin-top:.5rem;">Order Now</a>
         </div>
+
         <div class="globe-card">
           <img src="images/lobby_globe.png" alt="Business Globe" />
           <h3>Business</h3>
-          <p>Visualize production facilities worldwide, illustrate supply chains and distribution, see sales by country or region.</p>
-          <a href="globes.html" class="btn-sm">See More</a>
+          <p>Visualize production facilities worldwide, illustrate supply chains and distribution, and see sales by region.</p>
+          <a href="content.html" class="btn-sm">Content</a>
+          <a href="order-now.html" class="btn-sm" style="margin-top:.5rem;">Order Now</a>
         </div>
       </div>
     </div>
@@ -109,6 +119,6 @@
     </div>
   </footer>
 
-  <script src="Java.js"></script>
+  <script src="Java.js" defer></script>
 </body>
 </html>
