@@ -275,7 +275,7 @@ footer{background:var(--dk);border-top:1px solid var(--dkb);padding-block:28px}
       <span class="nav-page-btn" id="btn-pdp" onclick="showPage('pdp')">Product</span>
     </li>
   </ul>
-  <a class="btn btn-blue" href="#" onclick="showPage('pdp');return false">Pre-order · $799</a>
+  <a class="btn btn-blue" href="#" onclick="document.getElementById('ce-modal').style.display='flex';return false">Pre-order · $799</a>
 </nav>
 
 <!-- ====== HOME PAGE ====== -->
@@ -290,7 +290,7 @@ footer{background:var(--dk);border-top:1px solid var(--dkb);padding-block:28px}
       <h1 class="display-i hero-h1">Your gateway to exploring our world</h1>
       <p class="hero-sub">Curious Earth is a living projection globe that displays real-time weather, the sweep of human history, and the wonder of our planet and turns it into a shared physical experience.</p>
       <div class="hero-acts">
-        <a class="btn btn-blue btn-lg" href="#" onclick="showPage('pdp');return false">Pre-order — $799</a>
+        <a class="btn btn-blue btn-lg" href="#" onclick="document.getElementById('ce-modal').style.display='flex';return false">Pre-order — $799</a>
         <a class="btn btn-ghost btn-lg" href="/video">Watch the Video ▶</a>
       </div>
     </div>
@@ -469,7 +469,7 @@ footer{background:var(--dk);border-top:1px solid var(--dkb);padding-block:28px}
       <p class="poc-sub">First Edition globes ship Q3 2027. Lock in your price today — no charge until shipment.</p>
       <div class="poc-price">$799</div>
       <div class="poc-acts">
-        <a class="btn btn-blue btn-lg" href="#" onclick="showPage('pdp');return false">Pre-order Now</a>
+        <a class="btn btn-blue btn-lg" href="#" onclick="document.getElementById('ce-modal').style.display='flex';return false">Pre-order Now</a>
         <a class="btn btn-ghost btn-lg" href="#">Learn more →</a>
       </div>
       <div class="poc-trust">
@@ -533,7 +533,7 @@ footer{background:var(--dk);border-top:1px solid var(--dkb);padding-block:28px}
         </div>
 
         <div class="pdp-ctas">
-          <a class="btn btn-blue btn-lg btn-full" href="#">Pre-order Now</a>
+          <a class="btn btn-blue btn-lg btn-full" href="#" onclick="document.getElementById('ce-modal').style.display='flex';return false">Pre-order Now</a>
           <button class="btn btn-outline btn-lg btn-full">♡&nbsp; Add to Wishlist</button>
         </div>
 
@@ -678,3 +678,29 @@ document.querySelectorAll('.opt-pills').forEach(group => {
 
 <!-- VIDEO MODAL -->
 
+<!-- PRE-ORDER MODAL -->
+<div id="ce-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(4,13,30,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#0D1232;border:1px solid rgba(235,239,248,.12);border-radius:16px;padding:40px;max-width:440px;width:100%;position:relative">
+    <button onclick="document.getElementById('ce-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;color:rgba(235,239,248,.4);font-size:20px;cursor:pointer;line-height:1">&#x2715;</button>
+    <p style="font-size:.6875rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#7E8199;margin-bottom:8px">Reserve your globe</p>
+    <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:300;font-size:1.5rem;color:#EBEFF8;margin-bottom:8px">Pre-order &middot; $799</h2>
+    <p style="font-size:.875rem;color:#7E8199;margin-bottom:28px">We'll reach out with payment details and your estimated ship date.</p>
+    <form id="ce-form" action="https://formspree.io/f/mbglpwne" method="POST" style="display:flex;flex-direction:column;gap:14px">
+      <input type="text" name="name" placeholder="Your name" required style="background:rgba(235,239,248,.06);border:1px solid rgba(235,239,248,.12);border-radius:8px;padding:12px 16px;color:#EBEFF8;font-size:.9375rem;font-family:inherit;outline:none;width:100%">
+      <input type="email" name="email" placeholder="Email address" required style="background:rgba(235,239,248,.06);border:1px solid rgba(235,239,248,.12);border-radius:8px;padding:12px 16px;color:#EBEFF8;font-size:.9375rem;font-family:inherit;outline:none;width:100%">
+      <button type="submit" style="background:#015764;color:#fff;border:none;border-radius:40px;padding:14px 32px;font-size:.9375rem;font-weight:500;cursor:pointer;font-family:inherit;margin-top:4px">Reserve My Globe</button>
+    </form>
+    <div id="ce-thanks" style="display:none;text-align:center;padding:20px 0">
+      <p style="font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:#EBEFF8;margin-bottom:8px">You're on the list.</p>
+      <p style="font-size:.875rem;color:#7E8199">We'll be in touch soon.</p>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('ce-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
+  if(res.ok){this.style.display='none';document.getElementById('ce-thanks').style.display='block';}
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('ce-modal').style.display='none'});
+</script>
