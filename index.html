@@ -166,6 +166,32 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .feat-b{font-size:.8125rem;color:var(--text2);font-weight:300;line-height:1.7}
 @media(max-width:640px){.feats-grid{grid-template-columns:1fr}}
 
+/* ============ SIMULATOR ============ */
+.sim{background:var(--bg2);padding-block:var(--sv)}
+.sim-hd{text-align:center;margin-bottom:clamp(28px,4vw,48px)}
+.sim-eye{color:var(--accent);margin-bottom:10px}
+.sim-h2{font-size:clamp(1.5rem,3.5vw,2.6rem);font-weight:300;color:var(--text);margin-bottom:12px}
+.sim-sub{font-size:.9375rem;color:var(--text2);font-weight:300;max-width:52ch;margin:0 auto}
+.sim-stage{position:relative;aspect-ratio:16/9;min-height:300px;border-radius:16px;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 40%,#13204a 0%,var(--dk) 70%);
+  box-shadow:0 30px 70px rgba(4,13,30,.35)}
+.sim-stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;visibility:hidden}
+.sim-stage[data-state="live"] iframe{visibility:visible}
+.sim-preview{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:18px;padding:24px;text-align:center;color:var(--dkt)}
+.sim-stage[data-state="live"] .sim-preview{display:none}
+.sim-orb{width:clamp(90px,14vw,150px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#7fc4ff 0%,#1f6fb8 35%,#0b2d5c 70%,#06142c 100%);
+  box-shadow:0 0 60px rgba(60,150,255,.35),inset -12px -14px 30px rgba(0,0,0,.45)}
+.sim-pt{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:300}
+.sim-loading{display:none;font-size:.8125rem;color:var(--dkt2)}
+.sim-stage[data-state="loading"] .sim-loading{display:block}
+.sim-acts{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.sim-acts [hidden]{display:none}
+@media(max-width:820px){
+  .sim-stage{aspect-ratio:4/3}
+}
+
 /* ============ ENTHUSIAST ============ */
 .enth{background:var(--dk);color:var(--dkt);padding-block:var(--sv)}
 .enth-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,88px);align-items:center}
@@ -314,6 +340,7 @@ html,body{overflow-x:hidden}
     <li><a href="#" onclick="showPage('home');return false">How It Works</a></li>
     <li><a href="#" onclick="goSection('features');return false">Features</a></li>
     <li><a href="#" onclick="goSection('families');return false">For Families</a></li>
+    <li><a href="#" onclick="goSection('simulator');return false">Simulator</a></li>
     <li><a href="#" class="nav-product" id="btn-pdp" onclick="showPage('pdp');return false">Product</a></li>
   </ul>
   <div class="nav-r">
@@ -325,6 +352,7 @@ html,body{overflow-x:hidden}
   <a href="#" onclick="closeMenu();showPage('home');return false">Home</a>
   <a href="#" onclick="closeMenu();goSection('features');return false">Features</a>
   <a href="#" onclick="closeMenu();goSection('families');return false">For Families</a>
+  <a href="#" onclick="closeMenu();goSection('simulator');return false">Simulator</a>
   <a href="#" onclick="closeMenu();showPage('pdp');return false">Product</a>
   <a href="/video">Watch the Video</a>
 </div>
@@ -457,6 +485,29 @@ html,body{overflow-x:hidden}
           <h3 class="feat-t">Your World</h3>
           <p class="feat-b">Mark every country you've visited, every city that matters to you. Share a map with someone you love. Build a custom overlay for your work, your research, or just your favorite baseball teams. It's your globe.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULATOR -->
+  <section class="sim" id="simulator">
+    <div class="con">
+      <div class="sim-hd">
+        <p class="eyebrow sim-eye">Try it yourself</p>
+        <h2 class="display sim-h2">See Curious Earth in action.</h2>
+        <p class="sim-sub">Explore the simulator: the globe and its control screen side by side, right in your browser.</p>
+      </div>
+      <div class="sim-stage" id="sim-stage" data-state="preview">
+        <div class="sim-preview">
+          <div class="sim-orb"></div>
+          <p class="sim-pt">Two-screen globe simulator</p>
+          <a class="btn btn-blue btn-lg" href="https://app.curiousearth.com/spherecast-sim?devices=one" target="_blank" rel="noopener">Launch the simulator ↗</a>
+          <p class="sim-loading">Loading the simulator…</p>
+        </div>
+      </div>
+      <div class="sim-acts">
+        <button class="btn btn-outline" id="sim-fs" hidden onclick="simFullscreen()">Full screen</button>
+        <a class="btn btn-outline" id="sim-tab" hidden href="https://app.curiousearth.com/spherecast-sim?devices=one" target="_blank" rel="noopener">Open in new tab ↗</a>
       </div>
     </div>
   </section>
@@ -717,6 +768,47 @@ function swapImg(thumb, src = thumb.src) {
   const main = document.getElementById('pdp-main-img');
   main.style.opacity = '0';
   setTimeout(() => { main.src = src; main.style.opacity = '1'; }, 200);
+}
+
+// Simulator embed: on wide screens, frame the live simulator once it scrolls near view.
+// app.curiousearth.com only renders inside our page if its frame-ancestors policy allows
+// curiousearth.com; a blocked frame never gets the simulator's two inner panes, so until
+// that is deployed visitors keep the launch button.
+const SIM_URL = 'https://app.curiousearth.com/spherecast-sim?devices=one';
+const simStage = document.getElementById('sim-stage');
+function loadSim() {
+  simStage.dataset.state = 'loading';
+  const frame = document.createElement('iframe');
+  frame.src = SIM_URL;
+  frame.title = 'Curious Earth simulator';
+  frame.allow = 'fullscreen';
+  frame.allowFullscreen = true;
+  simStage.appendChild(frame);
+  let tries = 0;
+  const check = setInterval(() => {
+    let panes = 0;
+    try { panes = frame.contentWindow.length; } catch (e) { panes = 0; }
+    if (panes > 0) {
+      clearInterval(check);
+      simStage.dataset.state = 'live';
+      document.getElementById('sim-fs').hidden = false;
+      document.getElementById('sim-tab').hidden = false;
+    } else if (++tries >= 40) {
+      clearInterval(check);
+      frame.remove();
+      simStage.dataset.state = 'preview';
+    }
+  }, 500);
+}
+function simFullscreen() {
+  const frame = simStage.querySelector('iframe');
+  if (frame && frame.requestFullscreen) frame.requestFullscreen();
+}
+if (!matchMedia('(max-width:820px)').matches && 'IntersectionObserver' in window) {
+  const simObserver = new IntersectionObserver(entries => {
+    if (entries.some(e => e.isIntersecting)) { simObserver.disconnect(); loadSim(); }
+  }, {rootMargin: '300px'});
+  simObserver.observe(simStage);
 }
 
 // Accordion
