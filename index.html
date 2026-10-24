@@ -19,8 +19,12 @@ button{cursor:pointer;border:none;background:none;font:inherit}
   --nav-bg:rgba(245,242,235,.92);
   --dk:#040D1E; --dk2:#0D1232; --dkt:#EBEFF8; --dkt2:#7E8199;
   --dkb:rgba(235,239,248,.1); --dks:#131735;
-  --max:1200px; --side:clamp(20px,5vw,80px); --sv:clamp(60px,8vw,112px);
+  --max:75rem; --side:clamp(20px,5vw,80px); --sv:clamp(60px,8vw,112px);
+  /* left/right inset that lines full-bleed sections up with .con content */
+  --edge:max(var(--side),calc((100% - var(--max))/2 + var(--side)));
 }
+/* scale type up gently on large monitors (16px at ≤1440, up to 20px) */
+html{font-size:clamp(16px,calc(8px + .55vw),20px)}
 @media(prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#0E1020;--bg2:#161830;--text:#EBEFF8;--text2:#8083A0;
@@ -60,7 +64,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 /* ============ NAV ============ */
 .nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:200;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 var(--side);height:60px;background:rgba(4,13,30,0.72);backdrop-filter:blur(10px);
+  padding:0 var(--edge);height:60px;background:rgba(4,13,30,0.72);backdrop-filter:blur(10px);
   transition:background .3s,backdrop-filter .3s}
 .nav.scrolled{background:var(--nav-bg);backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
@@ -87,22 +91,23 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%}
 .hero-over{position:absolute;inset:0;
   background:linear-gradient(to bottom,rgba(6,10,24,.05) 0%,rgba(6,10,24,.15) 45%,rgba(6,10,24,.78) 78%,rgba(6,10,24,.95) 100%)}
-.hero-con{position:relative;z-index:2;padding:0 var(--side);
-  padding-bottom:clamp(48px,8vw,88px);max-width:800px;color:#EBEFF8}
+.hero-con{position:relative;z-index:2;padding:0 var(--side) 0 var(--edge);
+  padding-bottom:clamp(48px,8vw,88px);width:100%;color:#EBEFF8}
+.hero-con > *{max-width:46rem}
 .hero-eyebrow{color:rgba(235,239,248,.55);margin-bottom:14px}
 .hero-h1{font-size:clamp(2.8rem,7.5vw,5.5rem);font-weight:300;
   color:#EBEFF8;margin-bottom:18px}
 .hero-sub{font-size:clamp(.9rem,1.9vw,1.05rem);color:rgba(235,239,248,.7);
   max-width:50ch;margin-bottom:30px;font-weight:300;line-height:1.7}
 .hero-acts{display:flex;gap:12px;flex-wrap:wrap}
-.hero-scroll{position:absolute;bottom:28px;right:var(--side);z-index:2;
+.hero-scroll{position:absolute;bottom:28px;right:var(--edge);z-index:2;
   display:flex;flex-direction:column;align-items:center;gap:6px;
   color:rgba(235,239,248,.4);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase}
 .scroll-line{width:1px;height:40px;background:rgba(235,239,248,.25)}
 
 /* ============ STRIP ============ */
-.strip{background:var(--dk)}
-.strip-row{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--dkb)}
+.strip{background:var(--dk);border-bottom:1px solid var(--dkb)}
+.strip-row{display:grid;grid-template-columns:repeat(4,1fr);max-width:var(--max);margin:0 auto}
 .strip-cell{padding:26px var(--side);border-right:1px solid var(--dkb);display:flex;flex-direction:column;gap:3px}
 .strip-cell:last-child{border-right:none}
 .strip-num{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:300;color:var(--dkt)}
@@ -137,7 +142,8 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .fam-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%}
 .fam-over{position:absolute;inset:0;
   background:linear-gradient(to right,rgba(6,10,24,.9) 0%,rgba(6,10,24,.6) 55%,rgba(6,10,24,.05) 100%)}
-.fam-con{position:relative;z-index:2;padding:0 var(--side);color:#EBEFF8;max-width:500px;padding-block:clamp(56px,9vw,104px)}
+.fam-con{position:relative;z-index:2;padding:0 var(--side) 0 var(--edge);color:#EBEFF8;width:100%;padding-block:clamp(56px,9vw,104px)}
+.fam-con > *{max-width:30rem}
 .fam-eye{color:var(--accent);margin-bottom:14px}
 .fam-h2{font-size:clamp(1.8rem,4.5vw,3.5rem);font-weight:300;color:#EBEFF8;margin-bottom:18px}
 .fam-body{font-size:.9375rem;color:rgba(235,239,248,.68);font-weight:300;line-height:1.75;margin-bottom:26px;max-width:42ch}
