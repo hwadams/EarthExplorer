@@ -80,10 +80,13 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 .nav.scrolled .nav-links a{color:var(--text2)}
 .nav-links a:hover{color:#EBEFF8}
 .nav.scrolled .nav-links a:hover{color:var(--text)}
-.nav-page-btn{font-size:.75rem;font-weight:400;opacity:.6;cursor:pointer;
-  padding:4px 8px;border-radius:4px;transition:opacity .2s}
-.nav-page-btn:hover{opacity:1;background:var(--border)}
-.nav-page-btn.cur{opacity:1;font-weight:500}
+.nav-links a.nav-product{display:inline-block;padding:6px 16px;border-radius:40px;font-weight:500;
+  color:#EBEFF8;border:1.5px solid rgba(235,239,248,.55);transition:border-color .2s,background .2s,color .2s}
+.nav-links a.nav-product:hover{border-color:#EBEFF8;background:rgba(235,239,248,.1);color:#EBEFF8}
+.nav.scrolled .nav-links a.nav-product{color:var(--accent);border-color:var(--accent)}
+.nav.scrolled .nav-links a.nav-product:hover{background:var(--accent);color:#fff}
+.nav-links a.nav-product.cur{background:rgba(235,239,248,.14)}
+.nav.scrolled .nav-links a.nav-product.cur{background:var(--accent);color:#fff}
 @media(max-width:680px){.nav-links,.nav-pages{display:none}}
 
 /* ============ HERO ============ */
@@ -309,13 +312,9 @@ html,body{overflow-x:hidden}
   </a>
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('home');return false">How It Works</a></li>
-    <li><a href="#" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'});return false">Features</a></li>
-    <li><a href="#" onclick="document.getElementById('families').scrollIntoView({behavior:'smooth'});return false">For Families</a></li>
-    <li>
-      <span class="nav-page-btn" id="btn-home" onclick="showPage('home')">Home</span>
-      &nbsp;·&nbsp;
-      <span class="nav-page-btn" id="btn-pdp" onclick="showPage('pdp')">Product</span>
-    </li>
+    <li><a href="#" onclick="goSection('features');return false">Features</a></li>
+    <li><a href="#" onclick="goSection('families');return false">For Families</a></li>
+    <li><a href="#" class="nav-product" id="btn-pdp" onclick="showPage('pdp');return false">Product</a></li>
   </ul>
   <div class="nav-r">
     <a class="btn btn-blue" href="#" onclick="document.getElementById('ce-modal').style.display='flex';return false">Pre-order · $799</a>
@@ -324,8 +323,8 @@ html,body{overflow-x:hidden}
 </nav>
 <div class="nav-menu" id="nav-menu">
   <a href="#" onclick="closeMenu();showPage('home');return false">Home</a>
-  <a href="#" onclick="closeMenu();showPage('home');document.getElementById('features').scrollIntoView({behavior:'smooth'});return false">Features</a>
-  <a href="#" onclick="closeMenu();showPage('home');document.getElementById('families').scrollIntoView({behavior:'smooth'});return false">For Families</a>
+  <a href="#" onclick="closeMenu();goSection('features');return false">Features</a>
+  <a href="#" onclick="closeMenu();goSection('families');return false">For Families</a>
   <a href="#" onclick="closeMenu();showPage('pdp');return false">Product</a>
   <a href="/video">Watch the Video</a>
 </div>
@@ -356,8 +355,8 @@ html,body{overflow-x:hidden}
   <div class="strip">
     <div class="strip-row">
       <div class="strip-cell">
-        <span class="strip-num">4K</span>
-        <span class="strip-lbl">DLP Projection</span>
+        <span class="strip-num">360°</span>
+        <span class="strip-lbl">Spherical Projection</span>
       </div>
       <div class="strip-cell">
         <span class="strip-num">Live</span>
@@ -389,7 +388,7 @@ html,body{overflow-x:hidden}
             <div class="fi-ico">🌍</div>
             <div class="fi-text">
               <strong>Live Earth View</strong>
-              <span>Real-time cloud cover, storm systems, aurora borealis, sea surface temperatures</span>
+              <span>Real-time cloud cover, storm systems, sea surface temperatures</span>
             </div>
           </li>
           <li class="fi">
@@ -601,7 +600,7 @@ html,body{overflow-x:hidden}
               <span>Live Earth Projection</span><span class="acc-ico">+</span>
             </button>
             <div class="acc-body">
-              Curious Earth streams real-time satellite and sensor data directly to the globe — every 10 minutes. See current cloud formations, active storm systems, sea surface temperatures, lightning strikes, and aurora probability zones as they exist right now. The globe is never showing you yesterday's world.
+              Curious Earth streams real-time satellite and sensor data directly to the globe — every 2 minutes. See current cloud formations, radar, satellite images, active storm systems, air flow, humidity, sea surface temperatures, and lightning strikes as they exist right now. The globe is never showing you yesterday's world.
             </div>
           </div>
           <div class="acc-item">
@@ -609,7 +608,7 @@ html,body{overflow-x:hidden}
               <span>AI Explorer Mode</span><span class="acc-ico">+</span>
             </button>
             <div class="acc-body">
-              Ask your globe anything. Speak naturally or type from the companion app: "Show me all active volcanoes," "Trace the route of the Silk Road," "Where is it sunrise right now?" The globe's AI interprets your question and renders a visual response on the sphere within seconds.
+              Ask your globe anything. Speak naturally or type from the companion app: "Show me all active volcanoes," "Trace the route of the Silk Road," "Where is it sunrise right now?" "Show me Michelin-starred restaurants in Northern California," "Show me the top rated golf courses in Ireland." The globe's AI interprets your question and renders a visual response on the sphere within seconds.
             </div>
           </div>
           <div class="acc-item">
@@ -625,7 +624,7 @@ html,body{overflow-x:hidden}
               <span>What's in the Box</span><span class="acc-ico">+</span>
             </button>
             <div class="acc-body">
-              Curious Earth globe (12") · Precision base with integrated power · 2m braided USB-C cable · 20W adapter (US/EU/UK included) · Quick-start card · Polishing cloth. Companion app available for iOS and Android (free, always-free core features).
+              Curious Earth globe (12") · Precision base with integrated power · 2m braided USB-C cable · 20W adapter (US/EU/UK included) · Quick-start card · Polishing cloth. Companion app available for iOS and Android.
             </div>
           </div>
           <div class="acc-item">
@@ -634,12 +633,12 @@ html,body{overflow-x:hidden}
             </button>
             <div class="acc-body">
               <table class="spec-t">
-                <tr><td>Display</td><td>DLP spherical projection, 4K source resolution</td></tr>
+                <tr><td>Display</td><td>DLP spherical projection</td></tr>
                 <tr><td>Globe diameter</td><td>12" (305mm)</td></tr>
-                <tr><td>Brightness</td><td>850 lumens (auto-adjusts to ambient)</td></tr>
+                <tr><td>Brightness</td><td>300 lumens (auto-adjusts to ambient)</td></tr>
                 <tr><td>Connectivity</td><td>Wi-Fi 6 (802.11ax), Bluetooth 5.2</td></tr>
                 <tr><td>Power</td><td>USB-C, 20W · Base integrated</td></tr>
-                <tr><td>Update frequency</td><td>Every 10 min (live data layers)</td></tr>
+                <tr><td>Update frequency</td><td>Up to every 2 minutes (depending on data source)</td></tr>
                 <tr><td>Companion app</td><td>iOS 16+ / Android 13+</td></tr>
                 <tr><td>Finish options</td><td>Matte Black, Brushed Steel</td></tr>
                 <tr><td>Warranty</td><td>2 years parts and labor</td></tr>
@@ -699,11 +698,16 @@ function closeMenu() {
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
-  document.getElementById('btn-home').classList.toggle('cur', id==='home');
   document.getElementById('btn-pdp').classList.toggle('cur', id==='pdp');
   window.scrollTo({top:0,behavior:'instant'});
   // nav color reset
   nav.classList.toggle('scrolled', false);
+}
+
+// Jump to a home-page section from either page
+function goSection(id) {
+  if (!document.getElementById('page-home').classList.contains('active')) showPage('home');
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
 }
 
 // PDP gallery
