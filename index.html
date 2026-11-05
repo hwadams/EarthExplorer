@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MTY9725VV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3MTY9725VV');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Curious Earth</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -852,8 +855,24 @@ document.querySelectorAll('.opt-pills').forEach(group => {
 document.getElementById('ce-form').addEventListener('submit',async function(e){
   e.preventDefault();
   const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-  if(res.ok){this.style.display='none';document.getElementById('ce-thanks').style.display='block';}
+  if(res.ok){if(window.gtag)gtag('event','generate_lead',{form_name:'reserve_globe'});this.style.display='none';document.getElementById('ce-thanks').style.display='block';}
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('ce-modal').style.display='none'});
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6f0bbe9507fa4caeac52978f9a949f09"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Google Analytics events -->
+<script>
+(function(){
+  function ev(n,p){if(window.gtag)gtag('event',n,p||{});}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a,button'); if(!a)return;
+    var oc=a.getAttribute('onclick')||'', h=a.getAttribute('href')||'', t=a.textContent.trim().slice(0,40);
+    if(oc.indexOf("ce-modal').style.display='flex'")>-1) ev('preorder_click',{button_text:t});
+    if(h.indexOf('app.curiousearth.com')>-1) ev('simulator_launch',{link_text:t});
+  },true);
+  if(typeof window.showPage==='function'){
+    var sp=window.showPage;
+    window.showPage=function(id){var r=sp.apply(this,arguments);ev('page_view',{page_title:'Curious Earth - '+id,page_location:location.origin+'/#'+id});return r;};
+  }
+})();
+</script>
