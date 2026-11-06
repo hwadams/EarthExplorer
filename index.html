@@ -8,9 +8,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5W3S5WNM');</script>
 <!-- End Google Tag Manager -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MTY9725VV"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3MTY9725VV');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Curious Earth</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -867,15 +864,15 @@ document.querySelectorAll('.opt-pills').forEach(group => {
 document.getElementById('ce-form').addEventListener('submit',async function(e){
   e.preventDefault();
   const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-  if(res.ok){if(window.gtag)gtag('event','generate_lead',{form_name:'reserve_globe'});this.style.display='none';document.getElementById('ce-thanks').style.display='block';}
+  if(res.ok){(window.dataLayer=window.dataLayer||[]).push({event:'generate_lead',form_name:'reserve_globe'});this.style.display='none';document.getElementById('ce-thanks').style.display='block';}
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('ce-modal').style.display='none'});
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6f0bbe9507fa4caeac52978f9a949f09"}'></script><!-- End Cloudflare Web Analytics -->
-<!-- Google Analytics events -->
+<!-- Analytics events: pushed to the dataLayer, sent to GA4 by GTM (GTM-5W3S5WNM) -->
 <script>
 (function(){
-  function ev(n,p){if(window.gtag)gtag('event',n,p||{});}
+  function ev(n,p){var o=p||{};o.event=n;(window.dataLayer=window.dataLayer||[]).push(o);}
   document.addEventListener('click',function(e){
     var a=e.target.closest('a,button'); if(!a)return;
     var oc=a.getAttribute('onclick')||'', h=a.getAttribute('href')||'', t=a.textContent.trim().slice(0,40);
@@ -884,7 +881,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')document.get
   },true);
   if(typeof window.showPage==='function'){
     var sp=window.showPage;
-    window.showPage=function(id){var r=sp.apply(this,arguments);ev('page_view',{page_title:'Curious Earth - '+id,page_location:location.origin+'/#'+id});return r;};
+    window.showPage=function(id){var r=sp.apply(this,arguments);ev('virtual_page_view',{page_title:'Curious Earth - '+id,page_location:location.origin+'/#'+id});return r;};
   }
 })();
 </script>
